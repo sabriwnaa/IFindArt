@@ -79,6 +79,23 @@ class Voto implements ActiveRecord{
         }
         return $votos;
     }
+    public static function ranking(): array {
+        $conexao = new MySQL();
+        $sql = "SELECT idItem, COUNT(idUsuario) quantidade FROM Voto GROUP BY idItem ORDER BY COUNT(idUsuario);";
+        $resultados = $conexao->consulta($sql);
+        
+        //inicializa só
+        $votos = array();
+        
+        //para todos os id
+        foreach ($resultados as $resultado) {
+            $v = array($resultado['idItem'], $resultado['quantidade']);
+            $ranking[] = $v;
+        }
+        
+        return $ranking;
+    }
+    
 
     
 }

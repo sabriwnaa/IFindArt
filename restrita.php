@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require_once "vendor/autoload.php";
 if(!isset($_SESSION['id'])) {
     header("Location: login.php");
 }
@@ -10,6 +11,7 @@ if(!isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ifindart</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class='container'>
