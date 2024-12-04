@@ -1,88 +1,72 @@
-
 <?php
-//ALTERAR
-class Festa implements ActiveRecord{
 
-    private int $idFesta;
+class Item implements ActiveRecord{
+
+    private int $idItem;
     
-    public function __construct(private string $nome,private string $endereco, private string $cidade, private string $dia){
+    public function __construct(private string $titulo,private string $imagem){
     }
 
-    public function setIdFesta(int $idFesta):void{
-        $this->idFesta = $idFesta;
+    public function setIdItem(int $idItem):void{
+        $this->idItem = $idItem;
     }
 
-    public function getIdFesta():int{
-        return $this->idFesta;
+    public function getIdItem():int{
+        return $this->idItem;
     }
 
-    public function setNome(string $nome):void{
-        $this->nome = $nome;
+    public function setTitulo(string $titulo):void{
+        $this->titulo = $titulo;
     }
 
-    public function getNome():string{
-        return $this->nome;
+    public function getTitulo():string{
+        return $this->titulo;
     }
 
-    public function setEndereco(string $endereco):void{
-        $this->endereco = $endereco;
+    public function setImagem(string $imagem):void{
+        $this->imagem = $imagem;
     }
 
-    public function getEndereco():string{
-        return $this->endereco;
+    public function getImagem():string{
+        return $this->imagem;
     }
 
-    public function setCidade(string $cidade):void{
-        $this->cidade = $cidade;
-    }
-
-    public function getCidade():string{
-        return $this->cidade;
-    }
-
-    public function setDia(string $dia):void{
-        $this->dia = $dia;
-    }
-
-    public function getDia():string{
-        return $this->dia;
-    }
 
     public function save():bool{
         $conexao = new MySQL();
-        if(isset($this->idFesta)){
-            $sql = "UPDATE Festa SET nome = '{$this->nome}' ,endereco = '{$this->endereco}',cidade = '{$this->cidade}', dia = '{$this->dia}' WHERE idFesta = {$this->idFesta}";
+        if(isset($this->idItem)){
+            $sql = "UPDATE Item SET titulo = '{$this->titulo}' ,imagem = '{$this->imagem}'";
         }else{
-            $sql = "INSERT INTO Festa (nome,endereco,cidade,dia) VALUES ('{$this->nome}','{$this->endereco}','{$this->cidade}','{$this->dia}')";
+            $sql = "INSERT INTO Item (titulo,imagem,cidade,dia) VALUES ('{$this->titulo}','{$this->imagem}'";
         }
         return $conexao->executa($sql);
         
     }
     public function delete():bool{
         $conexao = new MySQL();
-        $sql = "DELETE FROM Festa WHERE idFesta = {$this->idFesta}";
+        $sql = "DELETE FROM Item WHERE idItem = {$this->idItem}";
         return $conexao->executa($sql);
     }
 
-    public static function find($idFesta):Festa{
+    public static function findById($idItem):Item{
         $conexao = new MySQL();
-        $sql = "SELECT * FROM Festa WHERE idFesta = {$idFesta}";
+        $sql = "SELECT * FROM Item WHERE idItem = {$idItem}";
         $resultado = $conexao->consulta($sql);
-        $f = new Festa($resultado[0]['nome'],$resultado[0]['endereco'],$resultado[0]['cidade'],$resultado[0]['dia']);
-        $f->setIdFesta($resultado[0]['idFesta']);
-        return $f;
+        $i = new Item($resultado[0]['titulo'],$resultado[0]['imagem']);
+        $i->setIdItem($resultado[0]['idItem']);
+        return $i;
     }
     public static function findall():array{
         $conexao = new MySQL();
-        $sql = "SELECT * FROM Festa";
+        $sql = "SELECT * FROM item";
         $resultados = $conexao->consulta($sql);
-        $festas = array();
+        $itens = array();
         foreach($resultados as $resultado){
-            $f = new Festa($resultado['nome'],$resultado['endereco'],$resultado['cidade'],$resultado['dia']);
-            $f->setIdFesta($resultado['idFesta']);
-            $festas[] = $f;
+            $i = new Item($resultado['titulo'],$resultado['imagem']);
+            $i->setIdItem($resultado['idItem']);
+            $itens[] = $i;
         }
-        return $festas;
+        return $itens;
     }
 
     
