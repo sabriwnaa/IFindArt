@@ -13,6 +13,9 @@
     <?php include 'HeaderFooter/header.php'; ?>
 
     <div class='main'>
+        <div class='box'>
+            
+        </div>
 
     </div>
 

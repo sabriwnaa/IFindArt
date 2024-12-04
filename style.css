@@ -17,7 +17,7 @@
 
 header{
     flex: 1;
-    background-color: #4CAF50;
+    background-color: #ee732c;
     color: white;
     text-align: center;
 }
@@ -25,9 +25,18 @@ header{
 footer{
     flex: 1;
     flex: 1;
-    background-color: #4CAF50;
+    background-color: #d80378;
     color: white;
     text-align: center;
+}
+
+.box{
+    .box {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }    
+    background-color: #ee732c;
+    height: 100px;
+    width: 100px;
 }
 
       
