@@ -87,10 +87,13 @@ footer{
     flex: 1;
     display: flex;
 }
-
-.itemLC{
+a .LC{
     height: 100%;
+    width: 100%;
+}
+.itemLC{
     width: 50%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

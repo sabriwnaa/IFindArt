@@ -38,14 +38,13 @@ if (isset($_SESSION['id'])) {
             <div class='metade'>
                 <div class='LC'>
                     <div class ='itemLC'>
-                    <a href="?mode=login" class="button <?= $mode === 'login' ? 'active' : '' ?>">Login</a>
+                        <a href="?mode=login" class="button <?= $mode === 'login' ? 'active' : '' ?>">Login</a>
                     
                     </div>
                     <div class ='itemLC'>
                     <a href="?mode=cadastro" class="button <?= $mode === 'cadastro' ? 'active' : '' ?>">Cadastro</a>
-                
                     </div>
-                    </div>
+                </div>
                 
                 <div class='box'>
                     <?php if ($mode === 'login'): ?>
