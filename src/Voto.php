@@ -85,7 +85,7 @@ class Voto implements ActiveRecord{
         $resultados = $conexao->consulta($sql);
         
         //inicializa só
-        $votos = array();
+        $ranking = array();
         
         //para todos os id
         foreach ($resultados as $resultado) {

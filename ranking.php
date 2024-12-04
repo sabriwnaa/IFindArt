@@ -2,7 +2,8 @@
 session_start();
 require_once "vendor/autoload.php";
 
-$ranking[] = Voto::ranking();
+$ranking = array();
+$ranking = Voto::ranking();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,7 +25,7 @@ $ranking[] = Voto::ranking();
             <th>Item</th>
             <th>Quantidade</th>
             </tr>
-            <<?php endif ?>
+            <?php endif ?>
             <tr>
                 <?php
                 if(isset($ranking[0]["titulo"])){
