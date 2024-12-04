@@ -2,7 +2,7 @@
 session_start();
 require_once "vendor/autoload.php";
 
-$votos[] = Voto::findall();
+$ranking[] = Voto::ranking();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,7 +19,7 @@ $votos[] = Voto::findall();
     <div class='main'>
         <table>
             
-            <?php if(isset($votos[0]["titulo"])):?>
+            <?php if(isset($ranking[0]["titulo"])):?>
             <tr>
             <th>Item</th>
             <th>Quantidade</th>
@@ -27,10 +27,10 @@ $votos[] = Voto::findall();
             <<?php endif ?>
             <tr>
                 <?php
-                if(isset($votos[0]["titulo"])){
-                    foreach($votos as $voto){
-                    echo"<td>".$votos[0]["titulo"] ."</td>";
-                    echo"<td>".$votos[0]["quantidade"]."</td>";
+                if(isset($ranking[0]["titulo"])){
+                    foreach($ranking as $item){
+                    echo"<td>".$item["titulo"] ."</td>";
+                    echo"<td>".$item["quantidade"]."</td>";
                     }
                 }else{
                     echo"<p>não possui votos cadastrados</p>";
