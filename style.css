@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main{
+    flex: 7;
+}
+
+header{
+    flex: 1;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+}
+
+footer{
+    flex: 1;
+    flex: 1;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+}
+
+      
+    
