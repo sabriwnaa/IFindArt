@@ -1,0 +1,15 @@
+{
+    "name": "aluno/i-find-art",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sabriwnaa",
+            "email": "sabrinahm2006@gmail.com"
+        }
+    ],
+    "require": {}
+}
