@@ -1,5 +1,8 @@
 <?php 
-
+session_start();
+if(!isset($_SESSION['id'])) {
+    header("Location: login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,7 +16,7 @@
     <?php include 'header.php'; ?>
 
     <div class='main'>
-        <a href=""></a>
+        
     </div>
 
     <?php include 'footer.php'; ?>

@@ -1,3 +1,10 @@
+<?php 
+require_once "vendor/autoload.php";
+session_start();
+if(isset($_SESSION['id'])) {
+    header("Location: restrita.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
