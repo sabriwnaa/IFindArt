@@ -48,12 +48,14 @@ footer{
     background-color: #ee732c;
     height: 300px;
     width: 300px;
+    flex: 5;
 }
 
 .metade{
     width: 100vw;
     flex:1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -80,5 +82,18 @@ footer{
     height: 33%;
 }
 
+.LC{
+    width: 100vw;
+    flex: 1;
+    display: flex;
+}
+
+.itemLC{
+    height: 100%;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
       
     
