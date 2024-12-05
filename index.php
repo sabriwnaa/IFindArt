@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if (password_verify($senha, $row['senha'])) {
-                $_SESSION['id'] = $row['id'];
+                $_SESSION['id'] = $row['idUsuario'];
                 header("Location: restrita.php");
                 exit();
             } else {
@@ -102,10 +102,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class='metade'>
                 <div class='LC'>
                     <div class ='itemLC'>
-                        <a href="?mode=login" class="button <?= $mode === 'login' ? 'active' : '' ?>">Login</a>
+                        <a href="?mode=login" >">Login</a>
                     </div>
                     <div class ='itemLC'>
-                        <a href="?mode=cadastro" class="button <?= $mode === 'cadastro' ? 'active' : '' ?>">Cadastro</a>
+                        <a href="?mode=cadastro" >Cadastro</a>
                     </div>
                 </div>
 
