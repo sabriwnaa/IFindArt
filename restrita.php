@@ -1,9 +1,10 @@
 <?php 
 session_start();
-require_once "vendor/autoload.php";
-if(!isset($_SESSION['id'])) {
-    header("Location: login.php");
-}
+//require_once "vendor/autoload.php";
+//CONCERTAR
+///if(!isset($_SESSION['id'])) {
+ ///   header("Location: login.php");
+///}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -15,13 +16,11 @@ if(!isset($_SESSION['id'])) {
 </head>
 <body>
 <div class='container'>
-    <?php include 'header.php'; ?>
+    <?php include 'HeaderFooter/header.php'; ?>
 
     <div class='main'>
         
     </div>
-
-    <?php include 'footer.php'; ?>
 
     </div>
 </body>
