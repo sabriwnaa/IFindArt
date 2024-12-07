@@ -62,7 +62,7 @@ footer{
 
 .preView{
     width: 80%;
-    height: 500px;
+    height: 1000px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
     background-color: #ee732c;
     display: flex;
