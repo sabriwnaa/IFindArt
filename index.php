@@ -1,5 +1,6 @@
 <?php
 //require_once "vendor/autoload.php";
+
 session_start();
 require_once "src/Item.php";
 
@@ -141,6 +142,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 passwordField.type = "password";
             }
         }
+
+        
     </script>
 </head>
 <body>
@@ -164,35 +167,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p>Nenhum item foi votado ainda.</p>
                     <?php endif; ?>
                     </div>
-                    <h2>...</h2>
-                    <h2>Deseja ver mais do ranking e participar dele? Faça login ou cadastre-se!</h2>
+                    <div class='textoPV'<h2>...</h2></div>
+                    <div class='textoPV'<h2>Deseja ver mais do ranking e participar dele? Faça login ou cadastre-se!</h2></div>
                 </div>
             </div>
 
             <div class='metade'>
-                <div class='LC'>
+                <div class='LC' data-color="#EB4511">
                     <div class ='itemLC'>
                         <a href="?mode=login" >Login</a>
                     </div>
-                    <div class ='itemLC'>
+                    <div class ='itemLC' data-color="#d16834">
                         <a href="?mode=cadastro" >Cadastro</a>
                     </div>
                 </div>
+                <script>
+// Function to set active color based on mode
+function setActiveColor() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    
+    // Reset all items to default color
+    document.querySelectorAll('.itemLC').forEach(item => {
+        item.style.backgroundColor = '#ff7f3f'; // Default color
+    });
+    
+    // Set active color based on mode
+    if (mode) {
+        const activeItem = Array.from(document.querySelectorAll('.itemLC')).find(item => {
+            return item.querySelector('a').getAttribute('href').includes(mode);
+        });
+        
+        if (activeItem) {
+            activeItem.style.backgroundColor = '#d16834'; // Active color
+        }
+    }
+}
 
-                <div class='box'>
+// Call function on page load
+setActiveColor();
+
+// Add click event listeners to maintain color on click
+document.querySelectorAll('.itemLC').forEach(item => {
+    item.addEventListener('click', function() {
+        // Reset all items to default color
+        document.querySelectorAll('.itemLC').forEach(i => {
+            i.style.backgroundColor = '#ff7f3f'; // Reset to default color
+        });
+        
+        // Set background color to clicked item
+        this.style.backgroundColor = '#d16834'; // Active color
+    });
+});
+</script>
+
+                <div class='LouC'>
                     <?php if ($mode === 'login'): ?>
-                        <h2>Login</h2>
-                        <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                             <input type="hidden" name="mode" value="login">
                             <label for="login">Email ou Nome:</label>
                             <input type="text" id="login" name="login" required>
                             <label for="password">Senha:</label>
                             <input type="password" id="password" name="password" required>
+                            
+                            <button type="button" onclick="togglePassword()">Mostrar Senha</button>
                             <button type="submit">Entrar</button>
                         </form>
-                        <p>Não tem uma conta? <a href="?mode=cadastro">Cadastre-se</a>.</p>
-                    <?php else: ?>
-                        <h2>Cadastro</h2>
+                           <?php else: ?>
                         
                         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                             <input type="hidden" name="mode" value="cadastro">
@@ -205,8 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <button type="button" onclick="togglePassword()">Mostrar Senha</button>
                             <button type="submit">Cadastrar</button>
                         </form>
-                        <p>Já tem uma conta? <a href="?mode=login">Faça login</a>.</p>
-                    <?php endif; ?>
+                        <?php endif; ?>
 
                     <?php if (isset($_SESSION['error'])): ?>
                         <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>

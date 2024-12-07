@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 <body>
 <header>
-    <a href="index.php">IFindArt</a>
+    <a href="index.php"><h1>IFindArt</h1></a>
 
     <?php if (isset($_SESSION['id'])): // Verifica se o usuário está logado ?>
         <form method="POST" action="logout.php" style="display:inline;">

@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
+    color: wheat;
 }
 
 .main{
@@ -20,13 +21,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #f8ddb0;
 }
-
+header, footer {
+    background-color: #B02E0C; /* Dark orange */
+    text-align: center;
+}
 header{
     flex: 2;
-    background-color: #d80378;
-    color: white;
-    text-align: center;
+    
 }
 
 a{
@@ -37,15 +40,13 @@ a{
 
 footer{
     flex: 1;
-    flex: 1;
-    background-color: #d80378;
-    color: white;
-    text-align: center;
+}
+
+h2{
+    font-size: 20px;
 }
 
 .box{
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-    background-color: #ee732c;
     height: 300px;
     width: 300px;
     flex: 5;
@@ -57,35 +58,55 @@ footer{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .preView{
     width: 80%;
-    height: 1000px;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
-    background-color: #ee732c;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 30%;
+    box-shadow: 5px 5px 30px rgba(42, 15, 3, 0.5);
+    background-color: #EB4511; /* Main orange color */
+    border-radius: 7px; /* Slightly rounded corners */
+    margin: 10px;
+    
+    
 }
 
+.LouC, .preView {
+    gap: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tituloPV{
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textoPV{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .itens{
     width: 100%;
-    flex: 4;    
 }
 
 .item{
     border: 1px solid black;
     width: 100%;
-    height: 33%;
+    height: auto;
 }
 
 .LC{
     width: 100vw;
-    flex: 1;
     display: flex;
+    flex: 1;
 }
 a .LC{
     height: 100%;
@@ -93,11 +114,24 @@ a .LC{
 }
 .itemLC{
     width: 50%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
+    background-color: #ff7f3f;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%; /* Full width minus padding */
+    padding: 10px; /* Padding inside inputs */
+    border-radius: 7px; /* Rounded corners on inputs */
+    border: none;
+}
+
+.LouC{
+    width: 100vw;
+    flex: 4;
+    background-color: #d16834;
+
 }
 
 .fotoItem{
