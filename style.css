@@ -98,9 +98,11 @@ h2{
 }
 
 .item{
-    border: 1px solid black;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 7px;
     width: 100%;
     height: auto;
+    padding: 5px;
 }
 
 .LC{
