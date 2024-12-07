@@ -1,39 +1,41 @@
 <?php
 session_start();
+require_once "src/Item.php";
 
-// Verifica se o usuário está logado
 if (!isset($_SESSION['id'])) {
-    // Redireciona para o login caso o usuário não esteja logado
     header("Location: login.php");
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['item_id'])) {
+$conn = new mysqli("localhost", "root", "", "ifindart");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_POST['voto'])) {
     $item_id = $_POST['item_id'];
-    $idUsuario = $_SESSION['id'];  // Obtendo o idUsuario da sessão
+    $voto = $_POST['voto'];
 
-    // Conectar ao banco de dados
-    $conn = new mysqli("localhost", "root", "", "ifindart");
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    // Ação de "pular"
+    if ($voto == 2) {
+        // Não registra nada, apenas redireciona para a próxima votação
+        header("Location: restrita.php?mode=votacao");
+        exit();
     }
 
-    // Insere o voto na tabela voto
-    $sql = "INSERT INTO voto (idItem, idUsuario) VALUES (?, ?)";
+    // Registrar o voto no banco de dados
+    $sql = "INSERT INTO voto (idItem, idUsuario, isLike) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $item_id, $idUsuario);  // Bind para os dois parâmetros: idItem e idUsuario
+    $stmt->bind_param("iii", $item_id, $_SESSION['id'], $voto);
     $stmt->execute();
 
-    // Marca o item como votado para esse usuário na sessão
-    $_SESSION['voted_items'][$item_id] = true;
+    // Marcar item como votado na sessão
+    $_SESSION['voted_items'][$item_id] = $voto;
 
-    $_SESSION['success'] = "Seu voto foi registrado com sucesso!";
-    header("Location: restrita.php?mode=votacao");
-    exit();
-} else {
-    $_SESSION['error'] = "Erro ao registrar voto.";
     header("Location: restrita.php?mode=votacao");
     exit();
 }
+
+$conn->close();
 ?>

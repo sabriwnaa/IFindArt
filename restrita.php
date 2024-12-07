@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once "src/Item.php";
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['id'])) {
@@ -24,6 +25,7 @@ if ($modo === 'votacao') {
     $votados = isset($_SESSION['voted_items']) ? $_SESSION['voted_items'] : [];
 
     if (count($votados) > 0) {
+        // Excluir os itens que já foram votados (positivos ou negativos) da consulta
         $sql = "SELECT * FROM item WHERE idItem NOT IN (" . implode(",", array_keys($votados)) . ") ORDER BY RAND() LIMIT 1";
     } else {
         $sql = "SELECT * FROM item ORDER BY RAND() LIMIT 1";
@@ -37,20 +39,7 @@ if ($modo === 'votacao') {
         $_SESSION['error'] = "Todos os itens já foram votados.";
     }
 } elseif ($modo === 'ranking') {
-    $sql = "
-        SELECT i.idItem, i.titulo, COUNT(v.idItem) AS total_votos
-        FROM item i
-        LEFT JOIN voto v ON i.idItem = v.idItem
-        GROUP BY i.idItem, i.titulo
-        ORDER BY total_votos DESC
-    ";
-    $rankingResult = $conn->query($sql);
-    $ranking = [];
-    if ($rankingResult && $rankingResult->num_rows > 0) {
-        while ($row = $rankingResult->fetch_assoc()) {
-            $ranking[] = $row;
-        }
-    }
+    $ranking = Item::getRankingCompleto();
 }
 
 $conn->close();
@@ -86,8 +75,16 @@ $conn->close();
                 <p>Nome: <?php echo htmlspecialchars($itemAleatorio['titulo']); ?></p>
                 <img src="<?php echo htmlspecialchars($itemAleatorio['imagem']); ?>" alt="Imagem do Item">
                 <form method="POST" action="votar.php">
-                    <input type="hidden" name="item_id" value="<?php echo $itemAleatorio['idItem']; ?>">
-                    <button type="submit">Votar</button>
+                    <input type="hidden" name="item_id" value="<?php echo $itemAleatorio['idItem']; ?>"> <!-- Id do item sendo votado -->
+                    
+                    <!-- Botão de voto positivo -->
+                    <button type="submit" name="voto" value="1">Votar Positivo</button>
+                    
+                    <!-- Botão de voto negativo -->
+                    <button type="submit" name="voto" value="0">Votar Negativo</button>
+                    
+                    <!-- Botão de pular -->
+                    <button type="submit" name="voto" value="2">Pular</button>
                 </form>
             <?php else: ?>
                 <p><?php echo $_SESSION['error'] ?? 'Nenhum item disponível para votação.'; ?></p>
@@ -104,13 +101,13 @@ $conn->close();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($ranking as $item): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($item['idItem']); ?></td>
-                            <td><?php echo htmlspecialchars($item['titulo']); ?></td>
-                            <td><?php echo htmlspecialchars($item['total_votos']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($ranking as $item): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($item['idItem']); ?></td>
+                        <td><?php echo htmlspecialchars($item['titulo']); ?></td>
+                        <td><?php echo htmlspecialchars($item['totalVotos']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
 

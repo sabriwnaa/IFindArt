@@ -69,16 +69,29 @@ class Item implements ActiveRecord {
         return $items;
     }
 
-    // Método para buscar os 3 itens mais votados
+    // Método para buscar os 3 itens mais votados (apenas votos positivos)
     public static function getTop3Items(): array {
         $db = new MySQL();
         $sql = "
-            SELECT i.idItem, i.titulo, i.imagem, COUNT(v.idVoto) as totalVotos
+            SELECT i.idItem, i.titulo, i.imagem, COUNT(v.idVoto) AS totalVotos
             FROM item i
-            LEFT JOIN voto v ON i.idItem = v.idItem
+            LEFT JOIN voto v ON i.idItem = v.idItem AND v.isLike = 1
             GROUP BY i.idItem
             ORDER BY totalVotos DESC
             LIMIT 3
+        ";
+        return $db->consulta($sql);
+    }
+
+    // Método para buscar o ranking completo de itens (apenas votos positivos)
+    public static function getRankingCompleto(): array {
+        $db = new MySQL();
+        $sql = "
+            SELECT i.idItem, i.titulo, i.imagem, COUNT(v.idVoto) AS totalVotos
+            FROM item i
+            LEFT JOIN voto v ON i.idItem = v.idItem AND v.isLike = 1
+            GROUP BY i.idItem
+            ORDER BY totalVotos DESC
         ";
         return $db->consulta($sql);
     }

@@ -23,6 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($mode === 'login') {
+        if (empty($_POST['login']) || empty($_POST['password'])) {
+            $_SESSION['error'] = "Todos os campos são obrigatórios.";
+            header("Location: index.php?mode=cadastro");
+            exit();
+        }
         $login = $_POST['login'];
         $senha = $_POST['password'];
 
@@ -46,8 +51,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
     } elseif ($mode === 'cadastro') {
+        if (empty($_POST['email']) || empty($_POST['nome']) || empty($_POST['password'])) {
+            $_SESSION['error'] = "Todos os campos são obrigatórios.";
+            header("Location: index.php?mode=cadastro");
+            exit();
+        }
+
         $email = $_POST['email'];
         $nome = $_POST['nome'];
+
+       
 
         $dominioEsperado = '@aluno.feliz.ifrs.edu.br';
 
