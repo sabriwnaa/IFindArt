@@ -99,5 +99,10 @@ a .LC{
     justify-content: center;
     border: 1px solid black;
 }
+
+.fotoItem{
+    width: 100px;
+    height: 100px;
+}
       
     

@@ -1,73 +1,87 @@
 <?php
 
-class Item implements ActiveRecord{
+require_once __DIR__ . "/MySQL.php";
+require_once __DIR__ . "/ActiveRecord.php";
 
-    private int $idItem;
-    
-    public function __construct(private string $titulo,private string $imagem){
+class Item implements ActiveRecord {
+
+    private $db;
+    public $idItem;
+    public $titulo;
+    public $imagem;
+
+    public function __construct() {
+        $this->db = new MySQL(); 
     }
 
-    public function setIdItem(int $idItem):void{
-        $this->idItem = $idItem;
-    }
-
-    public function getIdItem():int{
-        return $this->idItem;
-    }
-
-    public function setTitulo(string $titulo):void{
-        $this->titulo = $titulo;
-    }
-
-    public function getTitulo():string{
-        return $this->titulo;
-    }
-
-    public function setImagem(string $imagem):void{
-        $this->imagem = $imagem;
-    }
-
-    public function getImagem():string{
-        return $this->imagem;
-    }
-
-
-    public function save():bool{
-        $conexao = new MySQL();
-        if(isset($this->idItem)){
-            $sql = "UPDATE Item SET titulo = '{$this->titulo}' ,imagem = '{$this->imagem}'";
-        }else{
-            $sql = "INSERT INTO Item (titulo,imagem,cidade,dia) VALUES ('{$this->titulo}','{$this->imagem}'";
+    // Método para salvar ou atualizar um item no banco de dados
+    public function save(): bool {
+        if ($this->idItem) {
+            // Atualiza um item existente
+            $sql = "UPDATE item SET titulo = '$this->titulo', imagem = '$this->imagem' WHERE idItem = $this->idItem";
+        } else {
+            // Insere um novo item
+            $sql = "INSERT INTO item (titulo, imagem) VALUES ('$this->titulo', '$this->imagem')";
         }
-        return $conexao->executa($sql);
-        
-    }
-    public function delete():bool{
-        $conexao = new MySQL();
-        $sql = "DELETE FROM Item WHERE idItem = {$this->idItem}";
-        return $conexao->executa($sql);
+
+        return $this->db->executa($sql);
     }
 
-    public static function findById($idItem):Item{
-        $conexao = new MySQL();
-        $sql = "SELECT * FROM Item WHERE idItem = {$idItem}";
-        $resultado = $conexao->consulta($sql);
-        $i = new Item($resultado[0]['titulo'],$resultado[0]['imagem']);
-        $i->setIdItem($resultado[0]['idItem']);
-        return $i;
+    // Método para deletar um item
+    public function delete(): bool {
+        if ($this->idItem) {
+            $sql = "DELETE FROM item WHERE idItem = $this->idItem";
+            return $this->db->executa($sql);
+        }
+        return false;
     }
-    public static function findall():array{
-        $conexao = new MySQL();
+
+    // Método estático para buscar um item pelo ID
+    public static function findById($id): object {
+        $db = new MySQL();
+        $sql = "SELECT * FROM item WHERE idItem = $id";
+        $result = $db->consulta($sql);
+
+        if (!empty($result)) {
+            $item = new self();
+            $item->idItem = $result[0]['idItem'];
+            $item->titulo = $result[0]['titulo'];
+            $item->imagem = $result[0]['imagem'];
+            return $item;
+        }
+        return null;
+    }
+
+    // Método estático para buscar todos os itens
+    public static function findAll(): array {
+        $db = new MySQL();
         $sql = "SELECT * FROM item";
-        $resultados = $conexao->consulta($sql);
-        $itens = array();
-        foreach($resultados as $resultado){
-            $i = new Item($resultado['titulo'],$resultado['imagem']);
-            $i->setIdItem($resultado['idItem']);
-            $itens[] = $i;
+        $results = $db->consulta($sql);
+
+        $items = [];
+        foreach ($results as $row) {
+            $item = new self();
+            $item->idItem = $row['idItem'];
+            $item->titulo = $row['titulo'];
+            $item->imagem = $row['imagem'];
+            $items[] = $item;
         }
-        return $itens;
+        return $items;
     }
 
-    
+    // Método para buscar os 3 itens mais votados
+    public static function getTop3Items(): array {
+        $db = new MySQL();
+        $sql = "
+            SELECT i.idItem, i.titulo, i.imagem, COUNT(v.idVoto) as totalVotos
+            FROM item i
+            LEFT JOIN voto v ON i.idItem = v.idItem
+            GROUP BY i.idItem
+            ORDER BY totalVotos DESC
+            LIMIT 3
+        ";
+        return $db->consulta($sql);
+    }
 }
+
+?>

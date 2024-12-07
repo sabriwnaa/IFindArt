@@ -1,5 +1,10 @@
 <?php
 //require_once "vendor/autoload.php";
+require_once "src/Item.php";
+
+$itemModel = new Item();
+$topItems = $itemModel->getTop3Items();
+
 session_start();
 
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 'login';
@@ -90,9 +95,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class='preView'>
                     <h2>Ranking dos artistas favoritos dos estudantes</h2>
                     <div class='itens'>
-                        <div class='item'></div>
-                        <div class='item'></div>
-                        <div class='item'></div>
+                        
+                    <?php if (!empty($topItems)) : ?>
+                    <?php foreach ($topItems as $item) : ?>
+                        <div class="item">
+                            <h3><?php echo htmlspecialchars($item['titulo']); ?></h3>
+                            <img class='fotoItem' src="<?php echo htmlspecialchars($item['imagem']); ?>" alt="Imagem do Item">
+                            <p>Votos: <?php echo (int)$item['totalVotos']; ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p>Nenhum item foi votado ainda.</p>
+                <?php endif; ?>
+
+
+
                     </div>
                     <h2>...</h2>
                     <h2>Deseja ver mais do ranking e participar dele? Faça login ou cadastre-se!</h2>
