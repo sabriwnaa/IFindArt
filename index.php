@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class='metade'>
                 <div class='LC'>
                     <div class ='itemLC'>
-                        <a href="?mode=login" >">Login</a>
+                        <a href="?mode=login" >Login</a>
                     </div>
                     <div class ='itemLC'>
                         <a href="?mode=cadastro" >Cadastro</a>

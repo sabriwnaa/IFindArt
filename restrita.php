@@ -1,12 +1,12 @@
-<?php 
+<?php
 session_start();
-//require_once "vendor/autoload.php";
 
 // Verifica se o usuário está logado
-// if(!isset($_SESSION['id'])) {
-//     header("Location: login.php");
-//     exit();
-// }
+if (!isset($_SESSION['id'])) {
+    // Redireciona para o login caso o usuário não esteja logado
+    header("Location: login.php");
+    exit();
+}
 
 $modo = isset($_GET['mode']) ? $_GET['mode'] : 'votacao';
 
@@ -18,19 +18,25 @@ if ($conn->connect_error) {
 
 $itemAleatorio = null;
 $ranking = [];
+$itensNaoVotados = [];
 
 if ($modo === 'votacao') {
-    // Selecionar um item aleatório
-    $sql = "SELECT * FROM item ORDER BY RAND() LIMIT 1";
+    $votados = isset($_SESSION['voted_items']) ? $_SESSION['voted_items'] : [];
+
+    if (count($votados) > 0) {
+        $sql = "SELECT * FROM item WHERE idItem NOT IN (" . implode(",", array_keys($votados)) . ") ORDER BY RAND() LIMIT 1";
+    } else {
+        $sql = "SELECT * FROM item ORDER BY RAND() LIMIT 1";
+    }
+
     $result = $conn->query($sql);
-    
+
     if ($result && $result->num_rows > 0) {
         $itemAleatorio = $result->fetch_assoc();
     } else {
-        $_SESSION['error'] = "Nenhum item encontrado.";
+        $_SESSION['error'] = "Todos os itens já foram votados.";
     }
 } elseif ($modo === 'ranking') {
-    // Obter ranking dos itens
     $sql = "
         SELECT i.idItem, i.titulo, COUNT(v.idItem) AS total_votos
         FROM item i
@@ -39,9 +45,16 @@ if ($modo === 'votacao') {
         ORDER BY total_votos DESC
     ";
     $rankingResult = $conn->query($sql);
+    $ranking = [];
+    if ($rankingResult && $rankingResult->num_rows > 0) {
+        while ($row = $rankingResult->fetch_assoc()) {
+            $ranking[] = $row;
+        }
+    }
 }
 
 $conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -70,9 +83,14 @@ $conn->close();
             <?php if ($itemAleatorio): ?>
                 <h2>Item Aleatório:</h2>
                 <p>ID: <?php echo htmlspecialchars($itemAleatorio['idItem']); ?></p>
-                <p>Nome: <?php echo htmlspecialchars($itemAleatorio['nome']); ?></p>
+                <p>Nome: <?php echo htmlspecialchars($itemAleatorio['titulo']); ?></p>
+                <img src="<?php echo htmlspecialchars($itemAleatorio['imagem']); ?>" alt="Imagem do Item">
+                <form method="POST" action="votar.php">
+                    <input type="hidden" name="item_id" value="<?php echo $itemAleatorio['idItem']; ?>">
+                    <button type="submit">Votar</button>
+                </form>
             <?php else: ?>
-                <p>Nenhum item encontrado.</p>
+                <p><?php echo $_SESSION['error'] ?? 'Nenhum item disponível para votação.'; ?></p>
             <?php endif; ?>
         
         <?php elseif ($modo === 'ranking'): ?>
@@ -89,7 +107,7 @@ $conn->close();
                     <?php foreach ($ranking as $item): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($item['idItem']); ?></td>
-                            <td><?php echo htmlspecialchars($item['nome']); ?></td>
+                            <td><?php echo htmlspecialchars($item['titulo']); ?></td>
                             <td><?php echo htmlspecialchars($item['total_votos']); ?></td>
                         </tr>
                     <?php endforeach; ?>
