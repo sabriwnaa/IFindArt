@@ -59,6 +59,9 @@ class Usuario implements ActiveRecord{
         return $conexao->executa($sql);
     }
 
+
+    //findBy metodos -----------------
+    
     public static function findById($idUsuario):Usuario{
         $conexao = new MySQL();
         $sql = "SELECT * FROM Usuario WHERE idUsuario = {$idUsuario}";
@@ -77,12 +80,27 @@ class Usuario implements ActiveRecord{
         return $u;
     }
 
+
+    public static function findByNome($nome):Usuario{
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM Usuario WHERE nome = {$nome}";
+        $resultado = $conexao->consulta($sql);
+        $u = new Usuario($resultado[0]['nome'],$resultado[0]['email'], $resultado[0]['senha']);
+        $u->setIdUsuario($resultado[0]['idUsuario']);
+        return $u;
+    }
+
+    //---------------------------------
+
+
     public static function verificarExistencia(string $email):bool{
         $conexao = new MySQL();
         $sql = "SELECT * FROM Usuario WHERE email = '{$email}'";
         $resultados = $conexao->consulta($sql);
         return count($resultados) > 0;
     }
+
+   
     
     
     public static function findall():array{
