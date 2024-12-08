@@ -23,7 +23,7 @@
     justify-content: center;
 }
 
-.informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto {
+.informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto, header, footer{
     display: flex;
     align-items: center;
     justify-content: center;
