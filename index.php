@@ -158,35 +158,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2>Ranking dos artistas favoritos dos estudantes</h2>
                     
                     <div class='itens'>
-                    <?php if (!empty($topItems)) : 
-                    $posicao = 0;    
-                    ?>
-                    <?php foreach ($topItems as $item) : 
-                        $posicao++;
-                        ?>
-                        
-                        <div class="item" <?php if ($posicao == 1) { echo "style='border-top: 1px solid rgb(255, 255, 255);'"; } ?>>
-                            <div class='posicao'>
-                                 <h1><?php echo $posicao; ?>°</h1>
-                            </div>
-                            <div class='informacoes' >
-                                <div class='boxFoto'>
-                                    <img class='fotoItem' src="<?php echo htmlspecialchars($item['imagem']); ?>" alt="Imagem do Item">
-                                </div>
-                                <div class='nomeVotos'>
-                                    <h3><?php echo htmlspecialchars($item['titulo']); ?></h3>
-                                    
-                                    <p><?php echo (int)$item['totalVotos']; ?> votos</p>
-
-                                </div>
+                            <?php if (!empty($topItems)) : 
+                            $posicao = 0;    
+                            ?>
+                            <?php foreach ($topItems as $item) : 
+                                $posicao++;
+                                ?>
                                 
-                            </div>
-                            
-                        </div>
-                    <?php endforeach; ?>
-                    <?php else : ?>
-                    <p>Nenhum item foi votado ainda.</p>
-                    <?php endif; ?>
+                                <div class="item" <?php if ($posicao == 1) { echo "style='border-top: 1px solid rgb(255, 255, 255);'"; } ?>>
+                                    <div class='posicao'>
+                                        <h1><?php echo $posicao; ?>°</h1>
+                                    </div>
+                                    <div class='informacoes' >
+                                        <div class='boxFoto'>
+                                            <img class='fotoItem' src="<?php echo htmlspecialchars($item['imagem']); ?>" alt="Imagem do Item">
+                                        </div>
+                                        <div class='nomeVotos'>
+                                            <h3><?php echo htmlspecialchars($item['titulo']); ?></h3>
+                                            
+                                            <p><?php echo (int)$item['totalVotos']; ?> votos</p>
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            <?php endforeach; ?>
+                            <?php else : ?>
+                        <p>Nenhum item foi votado ainda.</p>
+                        <?php endif; ?>
                     </div>
                     
                     <div class='textoPV'><h1>...</h1></div>

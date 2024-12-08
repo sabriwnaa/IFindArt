@@ -17,8 +17,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <a href="index.php"><h1>IFindArt</h1></a>
 
     <?php if (isset($_SESSION['id'])): // Verifica se o usuário está logado ?>
+        
         <form method="POST" action="logout.php" style="display:inline;">
-            <button type="submit">Sair</button>
+            <button type="submit" style='color: #6a1905; background-color: wheat; padding: 10px 15px; font-size: 15px;'>Sair</button>
         </form>
     <?php endif; ?>
 </header>

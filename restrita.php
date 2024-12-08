@@ -67,7 +67,7 @@ $conn->close();
         </div>
     </div>
 
-    <div class='main'>
+    <div class='main' style='color: #6a1905; flex: 8;'>
         <?php if ($modo === 'votacao'): ?>
             <?php if ($itemAleatorio): ?>
                 <h2>Item Aleatório:</h2>
@@ -91,21 +91,14 @@ $conn->close();
             <?php endif; ?>
         
         <?php elseif ($modo === 'ranking'): ?>
-            <h2>Ranking dos Itens:</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Total de Votos</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <h1>Ranking dos artistas favoritos dos estudantes</h2>
+            <div class='colunas'>
+                <h2>Artista</h2>
+                <h3>Votos</h3>
+            </div>
                 <?php foreach ($ranking as $item): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($item['idItem']); ?></td>
-                        <td><?php echo htmlspecialchars($item['titulo']); ?></td>
-                        <td><?php echo htmlspecialchars($item['totalVotos']); ?></td>
+                        <h2><?php echo htmlspecialchars($item['titulo']); ?></h2>
+                        <h3><?php echo htmlspecialchars($item['totalVotos']); ?></h3>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

@@ -13,6 +13,7 @@
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
     color: wheat;
+    text-align: center;
 }
 
 .main, .metade, .LouC, .preView, form{
@@ -33,8 +34,7 @@
     background-color: #f8ddb0;
 }
 header, footer {
-    background-color: #B02E0C; /* Dark orange */
-    text-align: center;
+    background-color: #B02E0C; /*#B02E0C Dark orange */
 }
 header{
     flex: 2;
@@ -53,7 +53,6 @@ footer{
 
 h2{
     font-size: 20px;
-    text-align: center;
 }
 
 .box{
@@ -78,7 +77,6 @@ h2{
 }
 
 .textoPV{
-    text-align: center;
     font-size: 10px;
 }
 
@@ -154,6 +152,7 @@ input[type="text"], input[type="email"], input[type="password"] {
 
 }
 
+
 .fotoItem{
     width: 100%;
     height: 100%;
@@ -214,3 +213,22 @@ form{
     margin-bottom: 15px;
 }
 
+.colunas{
+    display: flex;
+    width: 100%;
+    
+}
+
+.colunas h2, .colunas h3{
+    font-size: 20px;
+    display: flex;
+    text-align: center;
+}
+
+.colunas h2{
+    width: 80%;
+}
+
+.colunas h3{
+    flex: 1;
+}
