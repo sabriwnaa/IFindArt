@@ -15,12 +15,21 @@
     color: wheat;
 }
 
+.main, .metade, .LouC, .preView, form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .main{
     flex: 10;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #f8ddb0;
 }
 header, footer {
@@ -44,6 +53,7 @@ footer{
 
 h2{
     font-size: 20px;
+    text-align: center;
 }
 
 .box{
@@ -55,54 +65,47 @@ h2{
 .metade{
     width: 100vw;
     flex:1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
+
 .preView{
-    width: 80%;
-    height: 30%;
+    width: 90%;
+    height: 20%;
     box-shadow: 5px 5px 30px rgba(42, 15, 3, 0.5);
     background-color: #EB4511; /* Main orange color */
     border-radius: 7px; /* Slightly rounded corners */
-    margin: 10px;
-    
-    
+    margin: 5%;
+}
+
+.textoPV{
+    text-align: center;
+    font-size: 10px;
+}
+
+.textoPV p{
+    font-size: 15px;
 }
 
 .LouC, .preView {
     gap: 10px;
     padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 .tituloPV{
     font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.textoPV{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .itens{
     width: 100%;
 }
 
 .item{
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 7px;
+    border-bottom: 1px solid rgb(255, 255, 255);
     width: 100%;
-    height: auto;
-    padding: 5px;
+    height: 33,3%;
+    display: flex;
+    padding: 10px 5px;
 }
 
 .LC{
@@ -116,9 +119,6 @@ a .LC{
 }
 .itemLC{
     width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #ff7f3f;
 }
 
@@ -129,6 +129,24 @@ input[type="text"], input[type="email"], input[type="password"] {
     border: none;
 }
 
+.senha{
+    display: flex;
+    width: 100%;
+}
+
+.campoSenha{
+    flex:7;
+    margin-right: 5px;
+}
+
+.showHide{
+    flex: 1;
+    border-radius: 7px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    color: #d16834;
+}
+
 .LouC{
     width: 100vw;
     flex: 4;
@@ -137,8 +155,62 @@ input[type="text"], input[type="email"], input[type="password"] {
 }
 
 .fotoItem{
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+
 }
-      
+
+.posicao{
+    width: 5%;
+    height: 100%;
+    font-size: 12px;
+    margin-right: 15px;
+}
+
+.informacoes{
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.boxFoto{
+    height: 70px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden; 
+    border-radius: 10%; 
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+.nomeVotos{
+    height: 100%;
+    width: 50%;
+}
+
+.nomeVotos h3{
+    font-size: 20px;
     
+}
+
+button{
+    border: none;
+    border-radius: 7px;
+
+}
+
+.logar{
+    padding: 10px 15px;
+    font-size: 15px;
+    background-color: #B02E0C;
+    color: wheat;
+}
+
+form{
+    width: 100%;
+}
+
+.nomeCampo{
+    width: 100%;
+    margin-bottom: 15px;
+}
+

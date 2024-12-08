@@ -133,15 +133,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css">
     <script>
         function togglePassword() {
-            var passwordField = document.getElementById("password");
-            var passwordType = passwordField.type;
-
-            if (passwordType === "password") {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
-            }
-        }
+    var passwordField = document.getElementById("password");
+    var toggleButton = document.querySelector(".showHide");
+    
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleButton.textContent = "Hide"; // Alterar texto para "Hide"
+    } else {
+        passwordField.type = "password";
+        toggleButton.textContent = "Show"; // Alterar texto para "Show"
+    }
+}
 
         
     </script>
@@ -154,21 +156,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class='metade'>
                 <div class='preView'>
                     <h2>Ranking dos artistas favoritos dos estudantes</h2>
+                    
                     <div class='itens'>
-                    <?php if (!empty($topItems)) : ?>
-                    <?php foreach ($topItems as $item) : ?>
-                        <div class="item">
-                            <h3><?php echo htmlspecialchars($item['titulo']); ?></h3>
-                            <img class='fotoItem' src="<?php echo htmlspecialchars($item['imagem']); ?>" alt="Imagem do Item">
-                            <p>Votos: <?php echo (int)$item['totalVotos']; ?></p>
+                    <?php if (!empty($topItems)) : 
+                    $posicao = 0;    
+                    ?>
+                    <?php foreach ($topItems as $item) : 
+                        $posicao++;
+                        ?>
+                        
+                        <div class="item" <?php if ($posicao == 1) { echo "style='border-top: 1px solid rgb(255, 255, 255);'"; } ?>>
+                            <div class='posicao'>
+                                 <h1><?php echo $posicao; ?>°</h1>
+                            </div>
+                            <div class='informacoes' >
+                                <div class='boxFoto'>
+                                    <img class='fotoItem' src="<?php echo htmlspecialchars($item['imagem']); ?>" alt="Imagem do Item">
+                                </div>
+                                <div class='nomeVotos'>
+                                    <h3><?php echo htmlspecialchars($item['titulo']); ?></h3>
+                                    
+                                    <p><?php echo (int)$item['totalVotos']; ?> votos</p>
+
+                                </div>
+                                
+                            </div>
+                            
                         </div>
                     <?php endforeach; ?>
                     <?php else : ?>
                     <p>Nenhum item foi votado ainda.</p>
                     <?php endif; ?>
                     </div>
-                    <div class='textoPV'<h2>...</h2></div>
-                    <div class='textoPV'<h2>Deseja ver mais do ranking e participar dele? Faça login ou cadastre-se!</h2></div>
+                    
+                    <div class='textoPV'><h1>...</h1></div>
+                    <div class='textoPV'><p>Deseja ver mais do ranking e participar dele? Faça login ou cadastre-se!</p></div>
                 </div>
             </div>
 
@@ -225,31 +247,54 @@ document.querySelectorAll('.itemLC').forEach(item => {
                     <?php if ($mode === 'login'): ?>
                          <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                             <input type="hidden" name="mode" value="login">
-                            <label for="login">Email ou Nome:</label>
-                            <input type="text" id="login" name="login" required>
-                            <label for="password">Senha:</label>
-                            <input type="password" id="password" name="password" required>
+                            <div class='nomeCampo'>
+                                <label for="login">Email ou Nome</label>
+                                <input type="text" id="login" name="login" required>
                             
-                            <button type="button" onclick="togglePassword()">Mostrar Senha</button>
-                            <button type="submit">Entrar</button>
+                            </div>
+                            <div class='nomeCampo'>
+                                <label for="password">Senha</label>
+                                <div class='senha'>
+                                
+                                <input type="password" id="password" name="password" class='campoSenha' required>
+                                <button type="button" onclick="togglePassword()" class='showHide'>Show</button>
+                                
+                            </div>
+                            
+                            
+                            </div><button type="submit" class='logar'>Entrar</button>
                         </form>
                            <?php else: ?>
                         
                         <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                             <input type="hidden" name="mode" value="cadastro">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="nome.ultimo_sobrenome@aluno.feliz.ifrs.edu.br"  required>
-                            <label for="nome">Nome:</label>
-                            <input type="text" id="nome" name="nome" required>
-                            <label for="password">Senha:</label>
-                            <input type="password" id="password" name="password" required>
-                            <button type="button" onclick="togglePassword()">Mostrar Senha</button>
-                            <button type="submit">Cadastrar</button>
+                            
+                            <div class='nomeCampo'>
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="nome.ultimo_sobrenome@aluno.feliz.ifrs.edu.br"  required>
+                            
+                            </div>
+                            <div class='nomeCampo'>
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" name="nome" required>
+                            
+                            </div>
+                            <div class='nomeCampo'>
+                                <label for="password">Senha</label>
+                                <div class='senha'>
+                                
+                                <input type="password" id="password" name="password" class='campoSenha' required>
+                                <button type="button" onclick="togglePassword()" class='showHide'>Show</button>
+                                
+                                </div>
+                            </div>
+                           
+                            <button type="submit" class='logar'>Cadastrar</button>
                         </form>
                         <?php endif; ?>
 
                     <?php if (isset($_SESSION['error'])): ?>
-                        <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
+                        <p><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
                     <?php endif; ?>
                 </div>
             </div>
