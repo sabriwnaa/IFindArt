@@ -149,7 +149,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     width: 100vw;
     flex: 4;
     background-color: #d16834;
-
+    text-align: left;
 }
 
 
@@ -184,7 +184,10 @@ input[type="text"], input[type="email"], input[type="password"] {
 .nomeVotos{
     height: 100%;
     width: 50%;
+    text-align: left;
 }
+
+
 
 .nomeVotos h3{
     font-size: 20px;
