@@ -62,6 +62,11 @@ class MySQL {
             $this->connection->close();
         }
     }
+    public function close(){
+        $this->connection->close();
+    }
 }
+
+    
 
 ?>
