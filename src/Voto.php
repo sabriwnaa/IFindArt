@@ -59,7 +59,7 @@ class Voto implements ActiveRecord{
         return $conexao->executa($sql);
     }
 
-    public static function findById($idVoto):Voto{
+    public static function findById($idVoto):?object{
         $conexao = new MySQL();
         $sql = "SELECT * FROM Voto WHERE idVoto = {$idVoto}";
         $resultado = $conexao->consulta($sql);

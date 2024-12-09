@@ -52,6 +52,11 @@ class MySQL {
         return $data;
     }
 
+    // Adicionando o método escape
+    public function escape(string $value): string {
+        return $this->connection->real_escape_string($value);
+    }
+
     public function __destruct() {
         if ($this->connection) {
             $this->connection->close();

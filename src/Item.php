@@ -37,7 +37,7 @@ class Item implements ActiveRecord {
     }
 
     // Método estático para buscar um item pelo ID
-    public static function findById($id): object {
+    public static function findById($id): ?object {
         $db = new MySQL();
         $sql = "SELECT * FROM item WHERE idItem = $id";
         $result = $db->consulta($sql);
