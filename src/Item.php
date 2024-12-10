@@ -1,48 +1,37 @@
 <?php
-
 require_once __DIR__ . "/MySQL.php";
 require_once __DIR__ . "/ActiveRecord.php";
 
 class Item implements ActiveRecord {
-
     private $db;
-    public $idItem;
-    public $titulo;
-    public $imagem;
+    public $idItem, $titulo, $imagem;
 
     public function __construct() {
-        $this->db = new MySQL(); 
+        $this->db = new MySQL();
     }
 
-    // Método para salvar ou atualizar um item no banco de dados
     public function save(): bool {
-        if ($this->idItem) {
-            // Atualiza um item existente
-            $sql = "UPDATE item SET titulo = '$this->titulo', imagem = '$this->imagem' WHERE idItem = $this->idItem";
-        } else {
-            // Insere um novo item
-            $sql = "INSERT INTO item (titulo, imagem) VALUES ('$this->titulo', '$this->imagem')";
-        }
-
-        return $this->db->executa($sql);
+        $sql = $this->idItem ?
+            "UPDATE item SET titulo = ?, imagem = ? WHERE idItem = ?" :
+            "INSERT INTO item (titulo, imagem) VALUES (?, ?)";
+        $params = $this->idItem ? [$this->titulo, $this->imagem, $this->idItem] : [$this->titulo, $this->imagem];
+        return $this->db->executa($sql, $params);
     }
 
-    // Método para deletar um item
     public function delete(): bool {
         if ($this->idItem) {
-            $sql = "DELETE FROM item WHERE idItem = $this->idItem";
-            return $this->db->executa($sql);
+            $sql = "DELETE FROM item WHERE idItem = ?";
+            return $this->db->executa($sql, [$this->idItem]);
         }
         return false;
     }
 
-    // Método estático para buscar um item pelo ID
-    public static function findById($id): ?object {
+    public static function findById($id): ?Object {
         $db = new MySQL();
-        $sql = "SELECT * FROM item WHERE idItem = $id";
-        $result = $db->consulta($sql);
+        $sql = "SELECT * FROM item WHERE idItem = ?";
+        $result = $db->consulta($sql, [$id]);
 
-        if (!empty($result)) {
+        if ($result) {
             $item = new self();
             $item->idItem = $result[0]['idItem'];
             $item->titulo = $result[0]['titulo'];
@@ -52,7 +41,6 @@ class Item implements ActiveRecord {
         return null;
     }
 
-    // Método estático para buscar todos os itens
     public static function findAll(): array {
         $db = new MySQL();
         $sql = "SELECT * FROM item";
@@ -69,7 +57,35 @@ class Item implements ActiveRecord {
         return $items;
     }
 
-    // Método para buscar os 3 itens mais votados (apenas votos positivos)
+    public static function getItemAleatorio(array $idsVotados): ?array {
+        $db = new MySQL();
+        $sql = "SELECT * FROM item";
+    
+        // Adiciona a cláusula WHERE apenas se houver IDs votados
+        if (!empty($idsVotados)) {
+            $ids = implode(',', array_map('intval', $idsVotados));
+            $sql .= " WHERE idItem NOT IN ($ids)";
+        }
+    
+        $sql .= " ORDER BY RAND() LIMIT 1";
+    
+        $result = $db->consulta($sql);
+    
+        return $result[0] ?? null;
+    }
+    
+
+    public static function getRankingCompleto(): array {
+        $db = new MySQL();
+        $sql = "
+            SELECT i.idItem, i.titulo, i.imagem, COUNT(v.idVoto) AS totalVotos
+            FROM item i
+            LEFT JOIN voto v ON i.idItem = v.idItem AND v.isLike = 1
+            GROUP BY i.idItem
+            ORDER BY totalVotos DESC";
+        return $db->consulta($sql);
+    }
+
     public static function getTop3Items(): array {
         $db = new MySQL();
         $sql = "
@@ -82,19 +98,4 @@ class Item implements ActiveRecord {
         ";
         return $db->consulta($sql);
     }
-
-    // Método para buscar o ranking completo de itens (apenas votos positivos)
-    public static function getRankingCompleto(): array {
-        $db = new MySQL();
-        $sql = "
-            SELECT i.idItem, i.titulo, i.imagem, COUNT(v.idVoto) AS totalVotos
-            FROM item i
-            LEFT JOIN voto v ON i.idItem = v.idItem AND v.isLike = 1
-            GROUP BY i.idItem
-            ORDER BY totalVotos DESC
-        ";
-        return $db->consulta($sql);
-    }
 }
-
-?>

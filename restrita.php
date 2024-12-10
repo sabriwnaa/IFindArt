@@ -1,119 +1,98 @@
 <?php
 session_start();
-require_once "src/Item.php";
+require_once "vendor/autoload.php";
 
-// Verifica se o usuário está logado
+// Verifica login
 if (!isset($_SESSION['idUsuario'])) {
-    // Redireciona para o login caso o usuário não esteja logado
     header("Location: index.php");
     exit();
 }
 
+// Modo atual
 $modo = isset($_GET['mode']) ? $_GET['mode'] : 'votacao';
-
-$conn = new mysqli("localhost", "root", "", "ifindart");
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+$votados = $_SESSION['voted_items'] ?? [];
 $itemAleatorio = null;
 $ranking = [];
-$itensNaoVotados = [];
 
+// Ações baseadas no modo
 if ($modo === 'votacao') {
-    $votados = isset($_SESSION['voted_items']) ? $_SESSION['voted_items'] : [];
+    $itemAleatorio = Item::getItemAleatorio($votados);
 
-    if (count($votados) > 0) {
-        // Excluir os itens que já foram votados (positivos ou negativos) da consulta
-        $sql = "SELECT * FROM item WHERE idItem NOT IN (" . implode(",", array_keys($votados)) . ") ORDER BY RAND() LIMIT 1";
-    } else {
-        $sql = "SELECT * FROM item ORDER BY RAND() LIMIT 1";
-    }
-
-    $result = $conn->query($sql);
-
-    if ($result && $result->num_rows > 0) {
-        $itemAleatorio = $result->fetch_assoc();
-    } else {
+    if (!$itemAleatorio) {
         $_SESSION['error'] = "Todos os itens já foram votados.";
+        header("Location: restrita.php?mode=ranking");
+        exit();
     }
 } elseif ($modo === 'ranking') {
     $ranking = Item::getRankingCompleto();
 }
 
-$conn->close();
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ifindart</title>
+    <title>IFindArt</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class='container'>
+<div class="container">
     <?php include 'HeaderFooter/header.php'; ?>
-    
-    <div class='LC'>
-        <div class ='itemLC'>
-            <a href="?mode=votacao">Votação</a>
-        </div>
-        <div class ='itemLC'>
-            <a href="?mode=ranking">Ranking</a>
-        </div>
+
+    <div class="menu">
+        <a href="?mode=votacao">Votação</a>
+        <a href="?mode=ranking">Ranking</a>
+        <a href="logout.php">Logout</a>
     </div>
 
-    <div class='main' style='color: #6a1905; flex: 8;'>
+    <div class="main">
         <?php if ($modo === 'votacao'): ?>
             <?php if ($itemAleatorio): ?>
-                <h2>Item Aleatório:</h2>
-                <p>ID: <?php echo htmlspecialchars($itemAleatorio['idItem']); ?></p>
-                <p>Nome: <?php echo htmlspecialchars($itemAleatorio['titulo']); ?></p>
-                <img src="<?php echo htmlspecialchars($itemAleatorio['imagem']); ?>" alt="Imagem do Item">
+                <h2>Vote neste item:</h2>
+                <p>ID: <?= htmlspecialchars($itemAleatorio['idItem']); ?></p>
+                <p>Nome: <?= htmlspecialchars($itemAleatorio['titulo']); ?></p>
+                <img src="<?= htmlspecialchars($itemAleatorio['imagem']); ?>" alt="Imagem">
                 <form method="POST" action="votar.php">
-                    <input type="hidden" name="item_id" value="<?php echo $itemAleatorio['idItem']; ?>"> <!-- Id do item sendo votado -->
-                    
-                    <!-- Botão de voto positivo -->
-                    <button type="submit" name="voto" value="1">Votar Positivo</button>
-                    
-                    <!-- Botão de voto negativo -->
-                    <button type="submit" name="voto" value="0">Votar Negativo</button>
-                    
-                    <!-- Botão de pular -->
+                    <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
+                    <button type="submit" name="voto" value="1">Like</button>
+                    <button type="submit" name="voto" value="0">Dislike</button>
                     <button type="submit" name="voto" value="2">Pular</button>
                 </form>
             <?php else: ?>
-                <p><?php echo $_SESSION['error'] ?? 'Nenhum item disponível para votação.'; ?></p>
+                <p>Nenhum item disponível para votação.</p>
             <?php endif; ?>
-        
         <?php elseif ($modo === 'ranking'): ?>
-            <h1>Ranking dos artistas favoritos dos estudantes</h2>
-            <div class='colunas'>
-                <h2>Artista</h2>
-                <h3>Votos</h3>
+            <h1>Ranking</h1>
+            <div class="ranking">
+                <?php if (!empty($ranking)){
+                    $posicao = 0;
+                            foreach ($ranking as $item) {
+                                $posicao++;
+                                echo "
+                                <div class='item' " . ($posicao === 1 ? "style='border-top: 1px solid rgb(255, 255, 255);'" : "") . ">
+                                    <div class='posicao'>
+                                        <h1>{$posicao}°</h1>
+                                    </div>
+                                    <div class='informacoes'>
+                                        <div class='boxFoto'>
+                                            <img class='fotoItem' src='" . htmlspecialchars($item['imagem']) . "' alt='Imagem do Item'>
+                                        </div>
+                                        <div class='nomeVotos'>
+                                            <h3>" . htmlspecialchars($item['titulo']) . "</h3>
+                                            <p>" . (int)$item['totalVotos'] . " votos</p>
+                                        </div>
+                                    </div>
+                                </div>";
+                            }
+                        } else {
+                            echo "<p>Nenhum item foi votado ainda.</p>";
+                        }
+                        ?>
+                    </div>
             </div>
-                <?php foreach ($ranking as $item): ?>
-                        <h2><?php echo htmlspecialchars($item['titulo']); ?></h2>
-                        <h3><?php echo htmlspecialchars($item['totalVotos']); ?></h3>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-
-            <?php if (empty($ranking)): ?>
-                <p>Nenhum voto registrado ainda.</p>
-            <?php endif; ?>
-        
-        <?php else: ?>
-            <p>Selecione um modo para continuar.</p>
         <?php endif; ?>
-    
     </div>
-
 </div>
 </body>
 </html>

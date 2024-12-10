@@ -114,8 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- aqui vem o ranking dos top 3 -->
                     <div class="itens">
                         <?php
-                        $itemModel = new Item(); 
-                        $topItems = $itemModel->getTop3Items();
+                        $topItems = Item::getTop3Items();
 
                         if (!empty($topItems)) {
                             $posicao = 0;

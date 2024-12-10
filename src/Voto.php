@@ -1,101 +1,68 @@
 <?php
+require_once __DIR__ . "/MySQL.php";
+require_once __DIR__ . "/ActiveRecord.php";
 
-class Voto implements ActiveRecord{
+class Voto implements ActiveRecord {
+    private $idVoto;
 
-    private int $idVoto;
-    
-    public function __construct(private int $idUsuario,private int $idItem, private bool $isLike){
-    }
+    public function __construct(private int $idUsuario, private int $idItem, private bool $isLike) {}
 
-    public function setIdVoto(int $idVoto):void{
-        $this->idUsuario = $idVoto;
-    }
-
-    public function getIdVoto():int{
-        return $this->idVoto;
-    }
-
-    public function setIdUsuario(int $idUsuario):void{
-        $this->idUsuario = $idUsuario;
-    }
-
-    public function getIdUsuario():int{
-        return $this->idUsuario;
-    }
-
-
-    public function setIdItem(int $idItem):void{
-        $this->idItem = $idItem;
-    }
-
-    public function getIdItem():int{
-        return $this->idItem;
-    }
-
-    public function setIsLike(bool $isLike):void{
-        $this->isLike = $isLike;
-    }
-
-    public function getIsLike():bool{
-        return $this->isLike;
-    }
-
-    
-
-
-    public function save():bool{
-        $conexao = new MySQL();
-        if(isset($this->idUsuario)){
-            $sql = "UPDATE Voto SET idUsuario = '{$this->idUsuario}' ,idItem = '{$this->idItem}', isLike = '{$this->isLike}'";
-        }else{
-            $sql = "INSERT INTO Voto (idUsuario,idItem,cidade,dia) VALUES ('{$this->idUsuario}','{$this->idItem}', '{$this->isLike}'";
+    public function save(): bool {
+        $db = new MySQL();
+        if ($this->idVoto) {
+            // Atualiza voto existente
+            $sql = sprintf(
+                "UPDATE voto SET idUsuario = %d, idItem = %d, isLike = %d WHERE idVoto = %d",
+                intval($this->idUsuario),
+                intval($this->idItem),
+                intval($this->isLike),
+                intval($this->idVoto)
+            );
+        } else {
+            // Insere novo voto
+            $sql = sprintf(
+                "INSERT INTO voto (idUsuario, idItem, isLike) VALUES (%d, %d, %d)",
+                intval($this->idUsuario),
+                intval($this->idItem),
+                intval($this->isLike)
+            );
         }
-        return $conexao->executa($sql);
-        
-    }
-    public function delete():bool{
-        $conexao = new MySQL();
-        $sql = "DELETE FROM Voto WHERE idVoto = {$this->idVoto}";
-        return $conexao->executa($sql);
+
+        return $db->executa($sql);
     }
 
-    public static function findById($idVoto):?object{
-        $conexao = new MySQL();
-        $sql = "SELECT * FROM Voto WHERE idVoto = {$idVoto}";
-        $resultado = $conexao->consulta($sql);
-        $v = new Voto($resultado[0]['idUsuario'],$resultado[0]['idItem'], $resultado[0]['isLike']);
-        $v->setIdVoto($resultado[0]['idVoto']);
-        return $v;
+    public function delete(): bool {
+        if ($this->idVoto) {
+            $sql = sprintf("DELETE FROM voto WHERE idVoto = %d", intval($this->idVoto));
+            return (new MySQL())->executa($sql);
+        }
+        return false;
     }
-    public static function findall():array{
-        $conexao = new MySQL();
-        $sql = "SELECT * FROM Voto";
-        $resultados = $conexao->consulta($sql);
-        $votos = array();
-        foreach($resultados as $resultado){
-            $v = new Voto($resultado['idUsuario'],$resultado['idItem'], $resultado['isLike']);
-            $v->setIdVoto($resultado['idVoto']);
-            $votos[] = $v;
+
+    public static function findById($id): ?Object {
+        $db = new MySQL();
+        $sql = sprintf("SELECT * FROM voto WHERE idVoto = %d", intval($id));
+        $result = $db->consulta($sql);
+
+        if ($result) {
+            $voto = new self($result[0]['idUsuario'], $result[0]['idItem'], $result[0]['isLike']);
+            $voto->idVoto = $result[0]['idVoto'];
+            return $voto;
+        }
+        return null;
+    }
+
+    public static function findAll(): array {
+        $db = new MySQL();
+        $sql = "SELECT * FROM voto";
+        $results = $db->consulta($sql);
+
+        $votos = [];
+        foreach ($results as $row) {
+            $voto = new self($row['idUsuario'], $row['idItem'], $row['isLike']);
+            $voto->idVoto = $row['idVoto'];
+            $votos[] = $voto;
         }
         return $votos;
     }
-    public static function ranking(): array {
-        $conexao = new MySQL();
-        $sql = "SELECT idItem, COUNT(idUsuario) quantidade FROM Voto GROUP BY idItem ORDER BY COUNT(idUsuario);";
-        $resultados = $conexao->consulta($sql);
-        
-        //inicializa só
-        $ranking = array();
-        
-        //para todos os id
-        foreach ($resultados as $resultado) {
-            $v = array($resultado['idItem'], $resultado['quantidade']);
-            $ranking[] = $v;
-        }
-        
-        return $ranking;
-    }
-    
-
-    
 }
