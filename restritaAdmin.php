@@ -31,12 +31,16 @@ $itens = Item::findAllSorted();
 <div class='main' style='color: #B02E0C; justify-content:start;'>
 
 
-<h1>Artistas cadastrados</h1>
+<h1 class='tituloAdmin'>Artistas cadastrados</h1>
 
+<a href="addItem.php">+ Adicionar artista</a>
 
         <div class="itens">
-            <?php if (!empty($itens)): ?>
-                <?php foreach ($itens as $item): ?>
+            <?php if (!empty($itens)): 
+                $posicao = 0;?>
+                
+                <?php foreach ($itens as $item): 
+                    $posicao++;?>
                     <div class="item" style='border-bottom: 1px solid #B02E0C;'>
                         <div class="informacoes">
                             <div class='boxFoto'>
