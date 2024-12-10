@@ -16,17 +16,14 @@
     text-align: center;
 }
 
-.main, .metade, .LouC, .preView, form{
+.main, .metade, .LouC, .preView, form, .informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto, header, footer{
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto, header, footer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.main, .metade, .LouC, .preView, form{
+    flex-direction: column;
 }
 
 .main{
@@ -254,16 +251,4 @@ form{
     background-color: #B02E0C;
 }
 
-.menu a{
-    
-    background-color: #B02E0C;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 2px;
-}
-.menu{
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
 
