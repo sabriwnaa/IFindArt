@@ -28,6 +28,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $login = $_POST['login'];
         $senha = $_POST['password'];
 
+        if($login == 'administrador' && $senha == 'ifindart'){
+            header("Location: restritaAdmin.php");
+            $_SESSION['adminLogado'] = true;
+            exit();
+        }
+
         if (Usuario::verificarLogin($login, $senha)) {
             
             header("Location: restrita.php");

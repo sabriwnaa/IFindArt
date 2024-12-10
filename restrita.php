@@ -69,8 +69,8 @@ if ($modo === 'votacao') {
             <?php endif; ?>
         <?php elseif ($modo === 'ranking'): ?>
             <div class="containerRanking">
-            <h1>Ranking</h1>
-            <div class="ranking">
+            <h1>Artistas favoritos dos estudantes</h1>
+            
                 <?php if (!empty($ranking)){
                     $posicao = 0;
                             foreach ($ranking as $item) {
@@ -96,7 +96,6 @@ if ($modo === 'votacao') {
                         }
                         ?>
                     </div>
-            </div>
         </div>
         <?php endif; ?>
     </div>

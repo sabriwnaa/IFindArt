@@ -98,4 +98,17 @@ class Item implements ActiveRecord {
         ";
         return $db->consulta($sql);
     }
+
+    public static function findAllSorted(): array {
+        $db = new MySQL();
+        $sql = "
+            SELECT i.idItem, i.titulo, i.imagem, COUNT(v.idVoto) AS totalVotos
+            FROM item i
+            LEFT JOIN voto v ON i.idItem = v.idItem AND v.isLike = 1
+            GROUP BY i.idItem
+            ORDER BY i.titulo ASC
+        ";
+        return $db->consulta($sql);
+    }
+    
 }
