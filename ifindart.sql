@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/12/2024 às 20:19
+-- Tempo de geração: 10/12/2024 às 21:34
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `ifindart`
 --
+CREATE DATABASE IF NOT EXISTS `ifindart` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `ifindart`;
 
 -- --------------------------------------------------------
 
@@ -38,11 +40,21 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`idItem`, `titulo`, `imagem`) VALUES
-(1, 'Starry Night', 'images/starry_night.jpg'),
-(2, 'Mona Lisa', 'images/mona_lisa.jpeg'),
-(3, 'The Persistence of Memory', 'images/persistence_of_memory.jpeg'),
-(4, 'The Scream', 'images/the_scream.jpeg'),
-(5, 'Girl with a Pearl Earring', 'images/girl_with_pearl.jpeg');
+(7, 'Clarice Lispector', 'Claricelispector.png'),
+(8, 'Carolina Maria De Jesus', 'carolina.jpg'),
+(9, 'João Guimarães Rosa', 'guimaraesrosa.webp'),
+(10, 'Machado de Assis', 'machado.jpg'),
+(11, 'Lygia Fagundes Telles', 'lygia.jpg'),
+(12, 'Elis Regina', 'elis.jpg'),
+(13, 'Gal Costa', 'gal.jpg'),
+(14, 'Caetano Veloso', 'caetano.jpg'),
+(15, 'Gilberto Gil', 'gil.jpg'),
+(16, 'Maria Bethânia', 'beth.jpeg'),
+(17, 'Fernanda Montenegro', 'fernanda-montenegro.jpg'),
+(18, 'Mar Becker', 'marbecker.jpg'),
+(19, 'Kehinde Wiley', 'kehinde.jpg'),
+(20, 'Jenny Saville', 'JennySaville.jpg'),
+(21, 'Yoko Ono', 'Yokoono.jpg');
 
 -- --------------------------------------------------------
 
@@ -62,17 +74,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `nome`, `email`, `senha`) VALUES
-(1, 'Alice', 'alice@example.com', '$2y$10$bkBQJe00PnATxZjVwLBgFeyK1Fy2jRbep3MSpZPBlzpDhoyhRFNOO'),
-(2, 'Bob', 'bob@example.com', '$2y$10$bkBQJe00PnATxZjVwLBgFeyK1Fy2jRbep3MSpZPBlzpDhoyhRFNOO'),
-(3, 'Clara', 'clara@example.com', '$2y$10$bkBQJe00PnATxZjVwLBgFeyK1Fy2jRbep3MSpZPBlzpDhoyhRFNOO'),
-(4, 'David', 'david@example.com', '$2y$10$bkBQJe00PnATxZjVwLBgFeyK1Fy2jRbep3MSpZPBlzpDhoyhRFNOO'),
-(5, 'Emma', 'emma@example.com', '$2y$10$bkBQJe00PnATxZjVwLBgFeyK1Fy2jRbep3MSpZPBlzpDhoyhRFNOO'),
-(6, 'gab', 'gabriel@gmail.com', '$2y$10$bkBQJe00PnATxZjVwLBgFeyK1Fy2jRbep3MSpZPBlzpDhoyhRFNOO'),
-(7, 'sab', 'sabrina@gmail.com', '$2y$10$cJ8P9eOWlqjXTMQcxAYZM.0sU3XGdrX3vWH0k5UKRYEst1Bpkhv2e'),
-(8, 'a', 'coisasserias.com@gmail.com', '$2y$10$hlpIZkU2vO7zYWsBEQAN9OFsFqhz6.yDh8KI242nf.x6qMM1V1DNa'),
-(9, 'gab', 'ana.escolar@aluno.feliz.ifrs.edu.br', '$2y$10$/FA5ymLS5AJtazKk0wlpg.QRyvlxR2D73FO9IsNulXthCW8e8Jx8C'),
-(10, 'cam', 'camila.melo@aluno.feliz.ifrs.edu.br', '$2y$10$gS.NwUvgCR0Q7IndDuE/5ejcW.YIbdwB9U.Xof8MybE1.d2myyg9i'),
-(11, 'bina', 'sa@aluno.feliz.ifrs.edu.br', '$2y$10$.TfiFqGFBNtFu61BkYFpJOhtbALran0.JgcZQClrgTc.xF/hedQNe');
+(12, 'sabriwnaa', 'sabrina.melo@aluno.feliz.ifrs.edu.br', '$2y$10$YE1cFMOX0jiunz/JV879Eu8o5y0b9j95Wx7xpRHS1DfsRQvmM8KkW'),
+(13, 'camizota', 'camila.melo@aluno.feliz.ifrs.edu.br', '$2y$10$iNXnl64nyw2etRyoFRYs0eWKMsyQtt3qlPHTiiTpxw98EvcsvfCy6'),
+(14, 'claudinha', 'claudia.hahn@aluno.feliz.ifrs.edu.br', '$2y$10$vIVy2Ai7cDCfk.8f08ujG.JGLFG3bNQZXcazEePx5vQGICczD7KPK');
 
 -- --------------------------------------------------------
 
@@ -92,60 +96,41 @@ CREATE TABLE `voto` (
 --
 
 INSERT INTO `voto` (`idVoto`, `idUsuario`, `idItem`, `isLike`) VALUES
-(1, 1, 1, 1),
-(2, 2, 1, 1),
-(3, 3, 2, 1),
-(4, 4, 1, 1),
-(5, 5, 2, 1),
-(6, 1, 3, 1),
-(7, 2, 2, 1),
-(8, 3, 5, 1),
-(9, 4, 5, 1),
-(10, 5, 2, 1),
-(12, 5, 4, 0),
-(13, 5, 5, 0),
-(14, 5, 3, 0),
-(15, 5, 1, 0),
-(16, 5, 2, 0),
-(20, 10, 2, 1),
-(21, 10, 1, 1),
-(22, 10, 1, 1),
-(23, 10, 1, 1),
-(24, 10, 4, 1),
-(25, 10, 4, 0),
-(26, 10, 1, 0),
-(27, 10, 3, 0),
-(28, 10, 3, 0),
-(29, 10, 4, 0),
-(30, 10, 4, 0),
-(31, 10, 4, 0),
-(32, 10, 4, 0),
-(33, 10, 1, 0),
-(34, 10, 4, 0),
-(35, 10, 1, 0),
-(36, 10, 2, 1),
-(37, 10, 4, 1),
-(38, 10, 4, 1),
-(39, 10, 5, 1),
-(40, 10, 3, 1),
-(41, 10, 1, 1),
-(42, 10, 4, 1),
-(43, 10, 5, 1),
-(44, 10, 4, 1),
-(45, 10, 5, 1),
-(46, 10, 2, 1),
-(47, 10, 2, 1),
-(48, 10, 4, 1),
-(49, 10, 3, 0),
-(50, 10, 2, 0),
-(51, 10, 1, 0),
-(52, 10, 4, 0),
-(53, 10, 5, 0),
-(54, 7, 4, 0),
-(55, 7, 5, 0),
-(56, 7, 2, 1),
-(57, 7, 3, 1),
-(58, 7, 1, 0);
+(59, 12, 10, 1),
+(60, 12, 14, 0),
+(61, 12, 20, 0),
+(62, 12, 11, 1),
+(63, 12, 17, 1),
+(64, 12, 7, 1),
+(65, 12, 16, 1),
+(66, 12, 13, 1),
+(67, 12, 12, 1),
+(68, 12, 21, 1),
+(69, 12, 18, 1),
+(70, 12, 15, 1),
+(71, 12, 9, 0),
+(72, 12, 8, 1),
+(73, 12, 19, 1),
+(74, 13, 12, 0),
+(75, 13, 18, 1),
+(76, 13, 19, 0),
+(77, 13, 15, 1),
+(78, 13, 11, 0),
+(79, 13, 17, 1),
+(80, 13, 16, 1),
+(81, 13, 10, 0),
+(82, 13, 14, 1),
+(83, 13, 13, 0),
+(84, 13, 9, 0),
+(85, 13, 21, 1),
+(86, 13, 7, 1),
+(87, 13, 20, 0),
+(88, 13, 8, 1),
+(89, 14, 10, 1),
+(90, 14, 11, 1),
+(91, 14, 17, 1),
+(92, 14, 20, 0),
+(93, 14, 8, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -179,19 +164,19 @@ ALTER TABLE `voto`
 -- AUTO_INCREMENT de tabela `item`
 --
 ALTER TABLE `item`
-  MODIFY `idItem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idItem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `idVoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `idVoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- Restrições para tabelas despejadas
