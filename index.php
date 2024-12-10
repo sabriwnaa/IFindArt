@@ -94,10 +94,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (passwordField.type === "password") {
                 passwordField.type = "text";
-                toggleButton.textContent = "Esconder";
+                toggleButton.textContent = "hide";
             } else {
                 passwordField.type = "password";
-                toggleButton.textContent = "Mostrar";
+                toggleButton.textContent = "show";
             }
         }
     </script>
@@ -165,10 +165,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for="password">Senha</label>
                                 <div class="senha">
                                     <input type="password" id="password" name="password" required>
-                                    <button type="button" onclick="togglePassword()" class="showHide">Mostrar</button>
+                                    <button type="button" onclick="togglePassword()" class="showHide">Show</button>
                                 </div>
                             </div>
-                            <button type="submit">Entrar</button>
+                            <button type="submit" class="logar">Entrar</button>
                         </form>
                     <?php else: ?>
                         <form method="POST" action="">
@@ -185,10 +185,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for="password">Senha</label>
                                 <div class="senha">
                                     <input type="password" id="password" name="password" required>
-                                    <button type="button" onclick="togglePassword()" class="showHide">Mostrar</button>
+                                    <button type="button" onclick="togglePassword()" class="showHide">Show</button>
                                 </div>
                             </div>
-                            <button type="submit">Cadastrar</button>
+                            <button type="submit" class="logar">Cadastrar</button>
                         </form>
                     <?php endif; ?>
 
