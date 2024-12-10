@@ -235,3 +235,25 @@ form{
 .colunas h3{
     flex: 1;
 }
+
+.containerRanking{
+    background-color: #B02E0C; 
+}
+
+.containerVotacao{
+    background-color: #B02E0C;
+}
+
+.menu a{
+    
+    background-color: #B02E0C;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 2px;
+}
+.menu{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+

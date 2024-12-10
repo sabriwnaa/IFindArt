@@ -48,21 +48,21 @@ if ($modo === 'votacao') {
 
     <div class="main">
         <?php if ($modo === 'votacao'): ?>
+            <div class="containerVotacao">
             <?php if ($itemAleatorio): ?>
                 <h2>Vote neste item:</h2>
-                <p>ID: <?= htmlspecialchars($itemAleatorio['idItem']); ?></p>
-                <p>Nome: <?= htmlspecialchars($itemAleatorio['titulo']); ?></p>
                 <img src="<?= htmlspecialchars($itemAleatorio['imagem']); ?>" alt="Imagem">
                 <form method="POST" action="votar.php">
                     <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
                     <button type="submit" name="voto" value="1">Like</button>
                     <button type="submit" name="voto" value="0">Dislike</button>
                     <button type="submit" name="voto" value="2">Pular</button>
-                </form>
+                </form></div>
             <?php else: ?>
                 <p>Nenhum item disponível para votação.</p>
             <?php endif; ?>
         <?php elseif ($modo === 'ranking'): ?>
+            <div class="containerRanking">
             <h1>Ranking</h1>
             <div class="ranking">
                 <?php if (!empty($ranking)){
@@ -91,6 +91,7 @@ if ($modo === 'votacao') {
                         ?>
                     </div>
             </div>
+        </div>
         <?php endif; ?>
     </div>
 </div>
