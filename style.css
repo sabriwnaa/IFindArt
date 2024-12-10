@@ -37,8 +37,10 @@ header, footer {
     background-color: #B02E0C; /*#B02E0C Dark orange */
 }
 header{
-    flex: 2;
-    
+    gap: 50%;
+    width: 100vw;
+    padding: 20px;
+    height: 10vh;
 }
 
 a{
@@ -110,6 +112,7 @@ h2{
     width: 100vw;
     display: flex;
     flex: 1;
+    height: 20vh;
 }
 a .LC{
     height: 100%;

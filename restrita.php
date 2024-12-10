@@ -40,10 +40,16 @@ if ($modo === 'votacao') {
 <div class="container">
     <?php include 'HeaderFooter/header.php'; ?>
 
-    <div class="menu">
-        <a href="?mode=votacao">Votação</a>
-        <a href="?mode=ranking">Ranking</a>
-        <a href="logout.php">Logout</a>
+
+    
+
+    <div class='LC'>
+        <div class='itemLC'>    
+    <a href="?mode=votacao">Votação</a>
+        </div>
+        <div class ='itemLC'>
+            <a href="?mode=ranking">Ranking</a>
+        </div>
     </div>
 
     <div class="main">
