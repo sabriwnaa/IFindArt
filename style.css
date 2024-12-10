@@ -17,13 +17,13 @@
     text-align: center;
 }
 
-.main, .metade, .LouC, .preView, form, .informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto, header, footer{
+.main, .metade, .LouC, .preView, form, .informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto, header, footer, .opcoes, .boxCadastroItem, .tituloAdmin{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.main, .metade, .LouC, .preView, form{
+.main, .metade, .LouC, .preView, form, .boxCadastroItem{
     flex-direction: column;
 }
 
@@ -260,6 +260,31 @@ form{
 
 .tituloAdmin{
     margin: 10px 0px;
+    flex: 1;
+}
+
+.boxCadastroItem{
+    width: 80%;
+    height: 70vh;
+    margin-bottom: 5vh;
+    background-color: #B02E0C;
+    border-radius: 7px;
+}
+
+.opcoes{
+    width: 90%;
+    gap: 5%;
+    flex: 1;
 }
 
 
+.botaoClaro{
+color: #6a1905; 
+background-color: wheat; padding: 10px 15px; 
+font-size: 15px; 
+border-radius: 7px;
+}
+
+.camposAddItem{
+    flex: 4;
+}
