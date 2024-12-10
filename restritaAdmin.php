@@ -44,7 +44,7 @@ $itens = Item::findAllSorted();
                     <div class="item" style='border-bottom: 1px solid #B02E0C;'>
                         <div class="informacoes">
                             <div class='boxFoto'>
-                                <img src="<?= htmlspecialchars($item['imagem']); ?>" alt="Imagem do Item" class="item-img">
+                                <img src="images/<?= htmlspecialchars($item['imagem']); ?>" alt="Imagem do Item" class="item-img">
                         
                             </div>
                             <div class='nomeVotos'>

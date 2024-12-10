@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                     <div class='informacoes'>
                                         <div class='boxFoto'>
-                                            <img class='fotoItem' src='" . htmlspecialchars($item['imagem']) . "' alt='Imagem do Item'>
+                                            <img class='fotoItem' src='images/" . htmlspecialchars($item['imagem']) . "' alt='Imagem do Item'>
                                         </div>
                                         <div class='nomeVotos'>
                                             <h3>" . htmlspecialchars($item['titulo']) . "</h3>

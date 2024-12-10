@@ -57,7 +57,7 @@ if ($modo === 'votacao') {
             <div class="containerVotacao">
             <?php if ($itemAleatorio): ?>
                 <h2>Vote neste item:</h2>
-                <img src="<?= htmlspecialchars($itemAleatorio['imagem']); ?>" alt="Imagem">
+                <img src="images/<?= htmlspecialchars($itemAleatorio['imagem']); ?>" alt="Imagem">
                 <form method="POST" action="votar.php">
                     <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
                     <button type="submit" name="voto" value="1">Like</button>
@@ -82,7 +82,7 @@ if ($modo === 'votacao') {
                                     </div>
                                     <div class='informacoes'>
                                         <div class='boxFoto'>
-                                            <img class='fotoItem' src='" . htmlspecialchars($item['imagem']) . "' alt='Imagem do Item'>
+                                            <img class='fotoItem' src='images/" . htmlspecialchars($item['imagem']) . "' alt='Imagem do Item'>
                                         </div>
                                         <div class='nomeVotos'>
                                             <h3>" . htmlspecialchars($item['titulo']) . "</h3>

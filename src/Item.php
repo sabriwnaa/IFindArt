@@ -11,12 +11,26 @@ class Item implements ActiveRecord {
     }
 
     public function save(): bool {
-        $sql = $this->idItem ?
-            "UPDATE item SET titulo = ?, imagem = ? WHERE idItem = ?" :
-            "INSERT INTO item (titulo, imagem) VALUES (?, ?)";
-        $params = $this->idItem ? [$this->titulo, $this->imagem, $this->idItem] : [$this->titulo, $this->imagem];
-        return $this->db->executa($sql, $params);
+        if ($this->idItem) {
+            // Monta a query para atualização
+            $sql = sprintf(
+                "UPDATE item SET titulo = '%s', imagem = '%s' WHERE idItem = %d",
+                $this->db->escape($this->titulo),
+                $this->db->escape($this->imagem),
+                intval($this->idItem)
+            );
+        } else {
+            // Monta a query para inserção
+            $sql = sprintf(
+                "INSERT INTO item (titulo, imagem) VALUES ('%s', '%s')",
+                $this->db->escape($this->titulo),
+                $this->db->escape($this->imagem)
+            );
+        }
+        // Executa a query
+        return $this->db->executa($sql);
     }
+    
 
     public function delete(): bool {
         if ($this->idItem) {
