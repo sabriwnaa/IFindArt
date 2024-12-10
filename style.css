@@ -130,6 +130,7 @@ input[type="text"], input[type="email"], input[type="password"] {
 .senha{
     display: flex;
     width: 100%;
+    gap: 5px;
 }
 
 .campoSenha{
@@ -143,6 +144,7 @@ input[type="text"], input[type="email"], input[type="password"] {
     border: none;
     background-color: rgb(255, 255, 255);
     color: #d16834;
+    padding: 10px;
 }
 
 .LouC{

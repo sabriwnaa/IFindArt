@@ -94,10 +94,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (passwordField.type === "password") {
                 passwordField.type = "text";
-                toggleButton.textContent = "hide";
+                toggleButton.textContent = "Hide";
             } else {
                 passwordField.type = "password";
-                toggleButton.textContent = "show";
+                toggleButton.textContent = "Show";
             }
         }
     </script>
@@ -148,9 +148,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="metade">
-                <div class="LC">
-                    <div class="itemLC"><a href="?mode=login">Login</a></div>
-                    <div class="itemLC"><a href="?mode=cadastro">Cadastro</a></div>
+                <div class="LC" >
+                    <div class="itemLC" <?php if ($mode === 'login'){ echo ' style="background-color:#d16834;"  ';} ?>><a href="?mode=login" >Login</a></div>
+                    <div class="itemLC" <?php if ($mode === 'cadastro'){ echo ' style="background-color:#d16834;"  ';} ?>><a href="?mode=cadastro">Cadastro</a></div>
                 </div>
 
                 <div class="LouC">
@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type="text" id="nome" name="nome" required>
                             </div>
                             <div class="nomeCampo">
-                                <label for="password">Senha</label>
+                                <label  for="password">Senha</label>
                                 <div class="senha">
                                     <input type="password" id="password" name="password" required>
                                     <button type="button" onclick="togglePassword()" class="showHide">Show</button>
