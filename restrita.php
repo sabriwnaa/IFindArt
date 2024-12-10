@@ -44,11 +44,11 @@ if ($modo === 'votacao') {
     
 
     <div class='LC'>
-        <div class='itemLC'>    
+        <div class='itemLC' style='background-color:#f8ddb0; color:#B02E0C;'>    
     <a href="?mode=votacao">Votação</a>
         </div>
-        <div class ='itemLC'>
-            <a href="?mode=ranking">Ranking</a>
+        <div class ='itemLC' style='background-color:#EB4511'>
+            <a href="?mode=ranking" >Ranking</a>
         </div>
     </div>
 
