@@ -22,23 +22,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Item</title>
 </head>
+
 <body>
-<h1>Editar Item</h1>
-<?php if (isset($error)): ?>
-    <p style="color:red;"><?= $error; ?></p>
-<?php endif; ?>
-<form method="POST">
-    <label for="titulo">Título:</label>
-    <input type="text" name="titulo" id="titulo" value="<?= htmlspecialchars($item->titulo); ?>" required>
-    <label for="imagem">Imagem:</label>
-    <input type="text" name="imagem" id="imagem" value="<?= htmlspecialchars($item->imagem); ?>" required>
-    <button type="submit">Salvar</button>
-</form>
+    <h1>Editar Item</h1>
+    <?php if (isset($error)): ?>
+        <p style="color:red;"><?= $error; ?></p>
+    <?php endif; ?>
+    <form method="POST">
+        <label for="titulo">Título:</label>
+        <input type="text" name="titulo" id="titulo" value="<?= htmlspecialchars($item->titulo); ?>" required>
+        <label for="imagem">Imagem:</label>
+        <input type="text" name="imagem" id="imagem" value="<?= htmlspecialchars($item->imagem); ?>" required>
+        <button type="submit">Salvar</button>
+    </form>
 </body>
+
 </html>

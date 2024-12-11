@@ -39,11 +39,6 @@ if ($modo === 'votacao') {
 </head>
 
 <body>
-    <script>
-        window.onload = function () {
-            window.scrollTo(0, document.body.scrollHeight);
-        };
-    </script>
     <div class="container">
         <?php include 'HeaderFooter/header.php'; ?>
 
