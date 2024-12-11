@@ -54,7 +54,7 @@ $itens = Item::findAllSorted();
                             
                         </div>
                         <div class="item-actions">
-                            <a href="editarItem.php?id=<?= $item['idItem']; ?>" class="botaoEscuro">Editar</a>
+                            <a href="editarItem.php?idItem=<?= $item['idItem']; ?>" class="botaoEscuro">Editar</a>
                             <a href="excluirItem.php?id=<?= $item['idItem']; ?>" class="botaoEscuro" onclick="return confirm('Tem certeza que deseja excluir este item?');">Excluir</a>
                         </div>
                     </div>

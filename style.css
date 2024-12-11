@@ -268,6 +268,7 @@ form{
 .boxItem{
     width: 80%;
     height: 70vh;
+    max-height: 70vh;
     margin-bottom: 5vh;
     background-color: #B02E0C;
     border-radius: 7px;
