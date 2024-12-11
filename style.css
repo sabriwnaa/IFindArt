@@ -206,11 +206,12 @@ button{
 
 }
 
-.logar{
+.botaoEscuro{
     padding: 10px 15px;
     font-size: 15px;
     background-color: #B02E0C;
     color: wheat;
+    border-radius: 7px;
 }
 
 form{
