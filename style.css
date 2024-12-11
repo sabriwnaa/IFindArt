@@ -206,11 +206,12 @@ button{
 
 }
 
-.logar{
+.botaoEscuro{
     padding: 10px 15px;
     font-size: 15px;
     background-color: #B02E0C;
     color: wheat;
+    border-radius: 7px;
 }
 
 form{
@@ -263,7 +264,7 @@ form{
     flex: 1;
 }
 
-.boxCadastroItem{
+.boxItem{
     width: 80%;
     height: 70vh;
     margin-bottom: 5vh;
@@ -285,7 +286,7 @@ font-size: 15px;
 border-radius: 7px;
 }
 
-.camposAddItem{
+.camposItem{
     flex: 4;
 }
 
