@@ -77,12 +77,13 @@ if ($modo === 'votacao') {
                             }
                             ?>
                         </div>
+                        <div class="containerBotoesVotacao">
                         <form class="botoesVotacao" method="POST" action="votar.php">
                             <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
                             <button type="submit" name="voto" value="1" class="botao">Like</button>
                             <button type="submit" name="voto" value="0" class="botao">Dislike</button>
                             <button type="submit" name="voto" value="2" class="botao">Pular</button>
-                        </form>
+                        </form></div>
                     </div>
                 <?php else: ?>
                     <p>Nenhum item disponível para votação.</p>
