@@ -79,12 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="previewContainer">
                     <img id="preview" src="images/<?= htmlspecialchars($item->imagem ?? 'placeholder.png') ?>" alt="Pré-visualização" class="previewImagem" />
                 </div>
-                <div class="opcoesCadastro">
+                
+        </div>
+        <div class="opcoesCadastro">
                     <button type="submit" class="botaoClaro botaoCadastrar">Salvar Alterações</button>
                     <a href="restritaAdmin.php" class="botaoClaro botaoCancelar">Cancelar</a>
                 </div>
             </form>
-        </div>
     </div>
 </div>
 </div>

@@ -43,7 +43,7 @@ if ($modo === 'votacao') {
 
 
 <body>
-    <div class="container" style='height:100vh;'>
+    <div class="container" style='height:100dvh;'>
         <?php include 'HeaderFooter/header.php'; ?>
 
 
@@ -68,7 +68,7 @@ if ($modo === 'votacao') {
                                 $totalVotos = count($votos);
                                 $totalItens = count(Item::findAll());
                                 echo "<p>{$totalVotos}/{$totalItens} itens</p>";
-                                echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
+                                echo "<a href='resetarVotos.php' class='botaoResetarVotos' style='border: 2px solid white; padding:3px 7px; border-radius: 7px;'>Resetar meus Votos</a>";
                             }
                             ?>
                         </div>

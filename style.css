@@ -17,7 +17,7 @@
     text-align: center;
 }
 
-.main, .metade, .LouC, .preView, form, .informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto, header, footer, .opcoes, .boxCadastroItem, .tituloAdmin{
+.main, .metade, .LouC, .preView, form, .informacoes, .tituloPV, .itemLC, .item, .posicao, .boxFoto, header, footer, .opcoes, .boxCadastroItem, .tituloAdmin, .opcoesCadastro{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,6 @@
 
 .main{
     flex: 10;
-    
     background-color: #f8ddb0;
 }
 header, footer {
@@ -262,12 +261,12 @@ form{
 
 .tituloAdmin{
     margin: 10px 0px;
-    flex: 1;
+    height: 20%;
 }
 
 .boxItem{
     width: 80%;
-    height:50vh;
+    height:60vh;
     margin-bottom: 5vh;
     background-color: #B02E0C;
     border-radius: 7px;
@@ -288,7 +287,7 @@ border-radius: 7px;
 }
 
 .camposItem{
-    flex: 4;
+    height: 60%;
 }
 
 .item-img {
@@ -329,6 +328,20 @@ border-radius: 7px;
     padding: 10px;
     position: absolute;
     top: 0;
+    height: 15%;
+}
+
+.barraArtista h2{
+    height: 40%;
+    font-size: 30px;
+}
+
+.barraArtista p{
+    height: 40%;
+}
+
+.barraArtista a{
+    height: 20%;
 }
 
 .botoesVotacao {
@@ -410,11 +423,9 @@ border-radius: 7px;
 }
 
 .opcoesCadastro {
-    display: flex;
     padding: 10px;
     gap: 20px;
-    flex: 1;
-    justify-content: center;
+    height: 20%;
 }
 
 /* Oculta o input original */
