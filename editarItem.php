@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (isset($erro)) : ?>
             <p class="mensagemErro"><?= htmlspecialchars($erro) ?></p>
         <?php endif; ?>
-        <form action="editItem.php" method="POST" enctype="multipart/form-data" class="formularioCadastro">
+        <form action="editarItem.php" method="POST" enctype="multipart/form-data" class="formularioCadastro">
             <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id'] ?? '') ?>">
             <label for="titulo" class="labelCampo">
                 Título do Item:
