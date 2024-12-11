@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/12/2024 às 21:34
+-- Tempo de geração: 11/12/2024 às 12:36
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Versão do PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -54,7 +54,8 @@ INSERT INTO `item` (`idItem`, `titulo`, `imagem`) VALUES
 (18, 'Mar Becker', 'marbecker.jpg'),
 (19, 'Kehinde Wiley', 'kehinde.jpg'),
 (20, 'Jenny Saville', 'JennySaville.jpg'),
-(21, 'Yoko Ono', 'Yokoono.jpg');
+(21, 'Yoko Ono', 'Yokoono.jpg'),
+(23, 'Billie Eilish', '1000056928.jpg');
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,11 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`idUsuario`, `nome`, `email`, `senha`) VALUES
 (12, 'sabriwnaa', 'sabrina.melo@aluno.feliz.ifrs.edu.br', '$2y$10$YE1cFMOX0jiunz/JV879Eu8o5y0b9j95Wx7xpRHS1DfsRQvmM8KkW'),
 (13, 'camizota', 'camila.melo@aluno.feliz.ifrs.edu.br', '$2y$10$iNXnl64nyw2etRyoFRYs0eWKMsyQtt3qlPHTiiTpxw98EvcsvfCy6'),
-(14, 'claudinha', 'claudia.hahn@aluno.feliz.ifrs.edu.br', '$2y$10$vIVy2Ai7cDCfk.8f08ujG.JGLFG3bNQZXcazEePx5vQGICczD7KPK');
+(14, 'claudinha', 'claudia.hahn@aluno.feliz.ifrs.edu.br', '$2y$10$vIVy2Ai7cDCfk.8f08ujG.JGLFG3bNQZXcazEePx5vQGICczD7KPK'),
+(15, 'Diogo', 'diogo@aluno.feliz.ifrs.edu.br', '$2y$10$I/5BJJ3AlUKpkq.E3lmIuuW7T66PXgMiKY75bU4YBaq32I/Om2teS'),
+(16, 'Ana', 'ana.escobar@aluno.feliz.ifrs.edu.br', '$2y$10$A3iHP1jM4Ty4H6nYnGIL1uVHrQBszqLbIajn8b8CTDnauW0SnWIV.'),
+(17, 'gab', 'gabriel@aluno.feliz.ifrs.edu.br', '$2y$10$9T1ihqiJflh5Sa4sxRC.z.Mp4nCmW6egAyIyGjRgAa3MLK4xxgva.'),
+(18, 'auler', 'auler@aluno.feliz.ifrs.edu.br', '$2y$10$Kum1W7upihNtb44Js6HcSugOHVcmj7K00SggHjEeLGKORGw/cXK1S');
 
 -- --------------------------------------------------------
 
@@ -96,21 +101,6 @@ CREATE TABLE `voto` (
 --
 
 INSERT INTO `voto` (`idVoto`, `idUsuario`, `idItem`, `isLike`) VALUES
-(59, 12, 10, 1),
-(60, 12, 14, 0),
-(61, 12, 20, 0),
-(62, 12, 11, 1),
-(63, 12, 17, 1),
-(64, 12, 7, 1),
-(65, 12, 16, 1),
-(66, 12, 13, 1),
-(67, 12, 12, 1),
-(68, 12, 21, 1),
-(69, 12, 18, 1),
-(70, 12, 15, 1),
-(71, 12, 9, 0),
-(72, 12, 8, 1),
-(73, 12, 19, 1),
 (74, 13, 12, 0),
 (75, 13, 18, 1),
 (76, 13, 19, 0),
@@ -130,7 +120,29 @@ INSERT INTO `voto` (`idVoto`, `idUsuario`, `idItem`, `isLike`) VALUES
 (90, 14, 11, 1),
 (91, 14, 17, 1),
 (92, 14, 20, 0),
-(93, 14, 8, 1);
+(93, 14, 8, 1),
+(94, 16, 19, 1),
+(95, 16, 11, 1),
+(96, 16, 7, 1),
+(97, 16, 16, 1),
+(112, 12, 7, 1),
+(127, 17, 20, 1),
+(128, 17, 19, 1),
+(129, 17, 9, 1),
+(130, 17, 17, 1),
+(132, 17, 10, 1),
+(133, 17, 14, 1),
+(134, 17, 15, 1),
+(135, 17, 8, 1),
+(136, 17, 11, 1),
+(137, 17, 16, 1),
+(138, 17, 12, 1),
+(139, 17, 18, 1),
+(140, 17, 13, 1),
+(141, 17, 23, 1),
+(142, 17, 21, 1),
+(143, 17, 7, 1),
+(144, 18, 16, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -164,19 +176,19 @@ ALTER TABLE `voto`
 -- AUTO_INCREMENT de tabela `item`
 --
 ALTER TABLE `item`
-  MODIFY `idItem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idItem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `voto`
 --
 ALTER TABLE `voto`
-  MODIFY `idVoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `idVoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- Restrições para tabelas despejadas
