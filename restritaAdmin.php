@@ -33,7 +33,7 @@ $itens = Item::findAllSorted();
 
 <h1 class='tituloAdmin'>Artistas cadastrados</h1>
 
-<a href="addItem.php">+ Adicionar artista</a>
+<a href="addItem.php" style='border: 2px solid #B02E0C; padding: 5px 10px; border-radius: 7px;'>+ Adicionar artista</a>
 
         <div class="itens">
             <?php if (!empty($itens)): 
@@ -54,8 +54,8 @@ $itens = Item::findAllSorted();
                             
                         </div>
                         <div class="item-actions">
-                            <a href="editarItem.php?id=<?= $item['idItem']; ?>" class="btn">Editar</a>
-                            <a href="excluirItem.php?id=<?= $item['idItem']; ?>" class="btn" onclick="return confirm('Tem certeza que deseja excluir este item?');">Excluir</a>
+                            <a href="editarItem.php?id=<?= $item['idItem']; ?>" class="botaoEscuro">Editar</a>
+                            <a href="excluirItem.php?id=<?= $item['idItem']; ?>" class="botaoEscuro" onclick="return confirm('Tem certeza que deseja excluir este item?');">Excluir</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
