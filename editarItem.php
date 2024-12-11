@@ -38,17 +38,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class='main'>
             <div class='boxItem'>
-            <h1>Editar Item</h1>
-    <?php if (isset($error)): ?>
-        <p style="color:red;"><?= $error; ?></p>
-    <?php endif; ?>
-    <form method="POST">
-        <label for="titulo">Título:</label>
-        <input type="text" name="titulo" id="titulo" value="<?= htmlspecialchars($item->titulo); ?>" required>
-        <label for="imagem">Imagem:</label>
-        <input type="text" name="imagem" id="imagem" value="<?= htmlspecialchars($item->imagem); ?>" required>
-        <button type="submit">Salvar</button>
-    </form>
+                <h1 class='tituloAdmin'>Editar Item</h1>
+                <div class='camposItem'>
+                    <?php if (isset($error)): ?>
+                    <p style="color:red;"><?= $error; ?></p>
+                    <?php endif; ?>
+                    <form method="POST">
+                        <label for="titulo">Título:</label>
+                        <input type="text" name="titulo" id="titulo" value="<?= htmlspecialchars($item->titulo); ?>" required>
+                        <label for="imagem">Imagem:</label>
+                        <input type="text" name="imagem" id="imagem" value="<?= htmlspecialchars($item->imagem); ?>" required>
+
+
+            </div>
+            <div class='opcoes'>
+                <button type="submit" class='botaoClaro'>Salvar</button>
+                <a href="restritaAdmin.php" class='botaoClaro' style='flex:1;'>Cancelar</a>
+            
+            </div>
+    
+        
+            </form>
             </div>
         </div>
 
