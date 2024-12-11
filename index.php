@@ -174,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <button type="button" onclick="togglePassword()" class="showHide">Show</button>
                                 </div>
                             </div>
-                            <button type="submit" class="botaoEscuro">Entrar</button>
+                            <button type="submit" class="logar">Entrar</button>
                         </form>
                     <?php else: ?>
                         <form method="POST" action="">
@@ -194,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <button type="button" onclick="togglePassword()" class="showHide">Show</button>
                                 </div>
                             </div>
-                            <button type="submit" class="botaoEscuro">Cadastrar</button>
+                            <button type="submit" class="logar">Cadastrar</button>
                         </form>
                     <?php endif; ?>
 
