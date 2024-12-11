@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Caminho para salvar a imagem
         $uploadDir = __DIR__ . "/images/";
         $uploadFile = $uploadDir . basename($imagem['name']);
-        
+
         // Criar diretório de upload se não existir
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
@@ -52,65 +52,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IFindArt</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class='container'>
-<?php include 'HeaderFooter/header.php'; ?>
-<div class='main'>
+    <div class="container">
+        <?php include 'HeaderFooter/header.php'; ?>
+        <div class="main">
 
-<div class='boxItem'>
-    <h1 class='tituloAdmin'>Cadastrar novo artista</h1>
-    <div class='camposItem'>
-        <?php if (isset($erro)) : ?>
-            <p style="color: red;"><?= htmlspecialchars($erro) ?></p>
-        <?php endif; ?>
-        <form action="addItem.php" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 20px;">
-            <label for="nome" style="display: flex; flex-direction: column;">
-                Nome do Artista:
-                <input type="text" name="titulo" id="nome" required style="padding: 10px; font-size: 16px;" />
-            </label>
-            <label for="imagem" style="display: flex; flex-direction: column;">
-                Imagem do Artista:
-                <input type="file" name="imagem" id="imagem" accept="image/*" required style="padding: 10px; font-size: 16px;" onchange="previewImage(event)" />
-            </label>
-            <div style="width: 150px; height: 150px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;">
-                <img id="preview" src="#" alt="Pré-visualização" style="width: 100%;
-                    height: 100%;
-                    object-fit: cover; 
-                    object-position: center; 
-                    border-radius: 5px;" />
+            <div class="boxItem">
+                <h1 class="tituloAdmin">Cadastrar novo artista</h1>
+                <div class="camposItem">
+                    <?php if (isset($erro)) : ?>
+                        <p class="mensagemErro"><?= htmlspecialchars($erro) ?></p>
+                    <?php endif; ?>
+                    <form action="addItem.php" method="POST" enctype="multipart/form-data" class="formularioCadastro">
+                        <label for="nome" class="labelCampo">
+                            Nome do Artista:
+                            <input type="text" name="titulo" id="nome" required class="inputCampo" />
+                        </label>
+                        <div class="custom-file">
+                            <label for="imagem" class="custom-file-label">Escolha uma imagem</label>
+                            <br>
+                            <input type="file" name="imagem" id="imagem" accept="image/*" required class="custom-file-input" onchange="previewImage(event)" />
+                        </div>
+                        <div class="previewContainer">
+                            <img id="preview" src="#" alt="Pré-visualização" class="previewImagem" />
+                        </div>
+                </div>
+                <div class="opcoesCadastro">
+                    <button type="submit" class="botaoClaro botaoCadastrar">Cadastrar</button>
+                    <a href="restritaAdmin.php" class="botaoClaro botaoCancelar">Cancelar</a>
+                </div>
+                </form>
             </div>
-            
-            
+
+        </div>
     </div>
-    <div class='opcoes'>
-            <button type="submit" class='botaoClaro' style='flex:2;'>Cadastrar</button>
-        
-            <a href="restritaAdmin.php" class='botaoClaro' style='flex:1;'>Cancelar</a>
-            </div>
-    </form>
-</div>
 
-</div>
-</div>
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const preview = document.getElementById('preview');
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
-<script>
-function previewImage(event) {
-    const reader = new FileReader();
-    reader.onload = function () {
-        const preview = document.getElementById('preview');
-        preview.src = reader.result;
-        preview.style.display = 'block';
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-</script>
+        // Atualiza o texto do label ao selecionar um arquivo
+        const inputFile = document.querySelector('.custom-file-input');
+        const labelFile = document.querySelector('.custom-file-label');
+        inputFile.addEventListener('change', (event) => {
+            const fileName = event.target.files[0]?.name || 'Escolha uma imagem';
+            labelFile.textContent = fileName;
+        });
+    </script>
 
 </body>
+
 </html>
