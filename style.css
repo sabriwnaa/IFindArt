@@ -341,7 +341,7 @@ border-radius: 7px;
 
 .botoesVotacao button img{
     width: 20px;
-    
+
 }
 
 .botoesVotacao button{
@@ -435,6 +435,10 @@ border-radius: 7px;
     cursor: pointer;
     text-align: center;
     color: #6a1905;
+}
+
+.previewContainer img {
+    width: 100%;
 }
 
 /* Estilo adicional para a div contêiner do input */
