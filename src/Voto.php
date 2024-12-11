@@ -65,4 +65,17 @@ class Voto implements ActiveRecord {
         }
         return $votos;
     }
+
+    public static function findAllByUsuario($idUsurio): array {
+        $db = new MySQL();
+        $sql = sprintf("SELECT * FROM voto WHERE idUsuario = %d", intval($idUsurio));
+        $results = $db->consulta($sql);
+
+        $votos = [];
+        foreach ($results as $row) {
+            $voto = $row['idItem'];
+            $votos[] = $voto;
+        }
+        return $votos;
+    }
 }

@@ -10,9 +10,12 @@ if (!isset($_SESSION['idUsuario'])) {
 
 // Modo atual
 $modo = isset($_GET['mode']) ? $_GET['mode'] : 'votacao';
-$votados = $_SESSION['voted_items'] ?? [];
+$votados = Voto::findAllByUsuario($_SESSION['idUsuario']); // Obtém os votos do usuário
+
 $itemAleatorio = null;
 $ranking = [];
+
+
 
 // Ações baseadas no modo
 if ($modo === 'votacao') {
