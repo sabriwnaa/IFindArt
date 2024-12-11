@@ -28,10 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Item</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Editar Item</h1>
+
+    <div class='container'>
+        <?php include 'HeaderFooter/header.php'; ?>
+
+        <div class='main'>
+            <div class='boxItem'>
+            <h1>Editar Item</h1>
     <?php if (isset($error)): ?>
         <p style="color:red;"><?= $error; ?></p>
     <?php endif; ?>
@@ -42,6 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="imagem" id="imagem" value="<?= htmlspecialchars($item->imagem); ?>" required>
         <button type="submit">Salvar</button>
     </form>
+            </div>
+        </div>
+
+
+
+ 
+    </div>
+
+
+
+    
 </body>
 
 </html>

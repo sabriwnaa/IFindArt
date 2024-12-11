@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include 'HeaderFooter/header.php'; ?>
 <div class='main'>
 
-<div class='boxCadastroItem'>
+<div class='boxItem'>
     <h1 class='tituloAdmin'>Cadastrar novo artista</h1>
     <div class='camposAddItem'>
         <?php if (isset($erro)) : ?>
