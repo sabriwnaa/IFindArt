@@ -54,7 +54,6 @@ if ($modo === 'votacao') {
             </div>
         </div>
 
-        <div class="main">
             <?php if ($modo === 'votacao'): ?>
                 <div class="containerVotacao">
                     <?php if ($itemAleatorio): ?>

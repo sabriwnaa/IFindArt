@@ -34,17 +34,23 @@ class Item implements ActiveRecord {
 
     public function delete(): bool {
         if ($this->idItem) {
-            $sql = "DELETE FROM item WHERE idItem = ?";
-            return $this->db->executa($sql, [$this->idItem]);
+            // Exclui os votos relacionados ao item
+            $sqlVotos = "DELETE FROM voto WHERE idItem = " . intval($this->idItem);
+            $this->db->executa($sqlVotos);
+    
+            // Exclui o item
+            $sqlItem = "DELETE FROM item WHERE idItem = " . intval($this->idItem);
+            return $this->db->executa($sqlItem);
         }
         return false;
     }
+    
 
     public static function findById($id): ?Object {
         $db = new MySQL();
-        $sql = "SELECT * FROM item WHERE idItem = ?";
-        $result = $db->consulta($sql, [$id]);
-
+        $sql = "SELECT * FROM item WHERE idItem = " . intval($id);
+        $result = $db->consulta($sql);
+    
         if ($result) {
             $item = new self();
             $item->idItem = $result[0]['idItem'];
@@ -75,9 +81,8 @@ class Item implements ActiveRecord {
         $db = new MySQL();
         $sql = "SELECT * FROM item";
     
-        // Adiciona a cláusula WHERE apenas se houver IDs votados
         if (!empty($idsVotados)) {
-            $ids = implode(',', array_map('intval', $idsVotados));
+            $ids = implode(',', array_map('intval', $idsVotados)); // Converte os IDs em inteiros seguros
             $sql .= " WHERE idItem NOT IN ($ids)";
         }
     
@@ -87,6 +92,7 @@ class Item implements ActiveRecord {
     
         return $result[0] ?? null;
     }
+    
     
 
     public static function getRankingCompleto(): array {
