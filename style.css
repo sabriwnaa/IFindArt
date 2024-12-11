@@ -339,6 +339,17 @@ border-radius: 7px;
     gap: 20px;
 }
 
+.botoesVotacao button img{
+    width: 20px;
+    
+}
+
+.botoesVotacao button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .containerBotoesVotacao{
     position: absolute;
     align-items: center;

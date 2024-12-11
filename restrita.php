@@ -80,9 +80,10 @@ if ($modo === 'votacao') {
                         <div class="containerBotoesVotacao">
                         <form class="botoesVotacao" method="POST" action="votar.php">
                             <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
-                            <button type="submit" name="voto" value="1" class="botao">Like</button>
-                            <button type="submit" name="voto" value="0" class="botao">Dislike</button>
-                            <button type="submit" name="voto" value="2" class="botao">Pular</button>
+                            
+                            <button type="submit" name="voto" value="0" class="botao"><img src="images/dislike.png"></button>
+                            <button type="submit" name="voto" value="2" class="botao">Skip</button>
+                            <button type="submit" name="voto" value="1" class="botao"><img src="images/like.png"></button>
                         </form></div>
                     </div>
                 <?php else: ?>
