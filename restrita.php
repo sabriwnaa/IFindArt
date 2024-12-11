@@ -41,18 +41,13 @@ if ($modo === 'votacao') {
     <link rel="stylesheet" href="style.css">
 </head>
 
-<script>
-    window.onload = function() {
-        window.scrollTo(0, document.body.scrollHeight);
-    };
-</script>
 
 <body>
-    <div class="container">
+    <div class="container" style='height:100vh;'>
         <?php include 'HeaderFooter/header.php'; ?>
 
 
-        <div class='LC'>
+        <div class='LC' style='height: 5vh;'>
             <div class='itemLC' style='background-color:#f8ddb0; color:#B02E0C;'>
                 <a href="?mode=votacao">Votação</a>
             </div>
@@ -62,10 +57,10 @@ if ($modo === 'votacao') {
         </div>
 
         <?php if ($modo === 'votacao'): ?>
-            <div class="containerVotacao">
+            <div class="containerVotacao" style='height: 85vh;'>
                 <?php if ($itemAleatorio): ?>
                     <div class="votacaoFoto" style="background-image: url('images/<?= htmlspecialchars($itemAleatorio['imagem']); ?>');">
-                        <div class="barraArtista">
+                        <div class="barraArtista" >
                             <h2><?= htmlspecialchars($itemAleatorio['titulo']); ?></h2>
                             <?php
                             if (Voto::findAllByUsuario($_SESSION['idUsuario'])) {
