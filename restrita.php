@@ -41,11 +41,15 @@ if ($modo === 'votacao') {
     <link rel="stylesheet" href="style.css">
 </head>
 
+<script>
+    window.onload = function() {
+        window.scrollTo(0, document.body.scrollHeight);
+    };
+</script>
+
 <body>
     <div class="container">
         <?php include 'HeaderFooter/header.php'; ?>
-
-
 
 
         <div class='LC'>
@@ -57,53 +61,53 @@ if ($modo === 'votacao') {
             </div>
         </div>
 
-            <?php if ($modo === 'votacao'): ?>
-                <div class="containerVotacao">
-                    <?php if ($itemAleatorio): ?>
-                        <div class="votacaoFoto" style="background-image: url('images/<?= htmlspecialchars($itemAleatorio['imagem']); ?>');">
-                            <div class="barraArtista">
-                                <h2><?= htmlspecialchars($itemAleatorio['titulo']); ?></h2>
-                                <?php
-                        if (Voto::findAllByUsuario($_SESSION['idUsuario'])) {
-                            $votos = Voto::findAllByUsuario($_SESSION['idUsuario']);
-                            $totalVotos = count($votos);
-                            $totalItens = count(Item::findAll());
-                            echo "<p>{$totalVotos}/{$totalItens} itens</p>";
-                            echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
-                        }
-                    ?>
-                            </div>
-                            <form class="botoesVotacao" method="POST" action="votar.php">
-                                <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
-                                <button type="submit" name="voto" value="1" class="botao">Like</button>
-                                <button type="submit" name="voto" value="0" class="botao">Dislike</button>
-                                <button type="submit" name="voto" value="2" class="botao">Pular</button>
-                            </form>
+        <?php if ($modo === 'votacao'): ?>
+            <div class="containerVotacao">
+                <?php if ($itemAleatorio): ?>
+                    <div class="votacaoFoto" style="background-image: url('images/<?= htmlspecialchars($itemAleatorio['imagem']); ?>');">
+                        <div class="barraArtista">
+                            <h2><?= htmlspecialchars($itemAleatorio['titulo']); ?></h2>
+                            <?php
+                            if (Voto::findAllByUsuario($_SESSION['idUsuario'])) {
+                                $votos = Voto::findAllByUsuario($_SESSION['idUsuario']);
+                                $totalVotos = count($votos);
+                                $totalItens = count(Item::findAll());
+                                echo "<p>{$totalVotos}/{$totalItens} itens</p>";
+                                echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
+                            }
+                            ?>
                         </div>
-                    <?php else: ?>
-                        <p>Nenhum item disponível para votação.</p>
-                    <?php endif; ?>
-                </div>
-            <?php elseif ($modo === 'ranking'): ?>
-                <div class="containerRanking">
-                    <h1>Artistas favoritos dos estudantes</h1>
+                        <form class="botoesVotacao" method="POST" action="votar.php">
+                            <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
+                            <button type="submit" name="voto" value="1" class="botao">Like</button>
+                            <button type="submit" name="voto" value="0" class="botao">Dislike</button>
+                            <button type="submit" name="voto" value="2" class="botao">Pular</button>
+                        </form>
+                    </div>
+                <?php else: ?>
+                    <p>Nenhum item disponível para votação.</p>
+                <?php endif; ?>
+            </div>
+        <?php elseif ($modo === 'ranking'): ?>
+            <div class="containerRanking">
+                <h1>Artistas favoritos dos estudantes</h1>
 
-                    <?php
-                        if (Voto::findAllByUsuario($_SESSION['idUsuario'])) {
-                            $votos = Voto::findAllByUsuario($_SESSION['idUsuario']);
-                            $totalVotos = count($votos);
-                            $totalItens = count(Item::findAll());
-                            echo "<p>Voce fez {$totalVotos} voto(s) de {$totalItens} itens</p>";
-                            echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
-                        }
-                    ?>
-                    
+                <?php
+                if (Voto::findAllByUsuario($_SESSION['idUsuario'])) {
+                    $votos = Voto::findAllByUsuario($_SESSION['idUsuario']);
+                    $totalVotos = count($votos);
+                    $totalItens = count(Item::findAll());
+                    echo "<p>Voce fez {$totalVotos} voto(s) de {$totalItens} itens</p>";
+                    echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
+                }
+                ?>
 
-                    <?php if (!empty($ranking)) {
-                        $posicao = 0;
-                        foreach ($ranking as $item) {
-                            $posicao++;
-                            echo "
+
+                <?php if (!empty($ranking)) {
+                    $posicao = 0;
+                    foreach ($ranking as $item) {
+                        $posicao++;
+                        echo "
                                 <div class='item' " . ($posicao === 1 ? "style='border-top: 1px solid rgb(255, 255, 255);'" : "") . ">
                                     <div class='posicao'>
                                         <h1>{$posicao}°</h1>
@@ -118,16 +122,16 @@ if ($modo === 'votacao') {
                                         </div>
                                     </div>
                                 </div>";
-                        }
-                    } else {
-                        echo "<p>Nenhum item foi votado ainda.</p>";
                     }
-                    ?>
-                </div>
-        </div>
-    <?php endif; ?>
+                } else {
+                    echo "<p>Nenhum item foi votado ainda.</p>";
+                }
+                ?>
+            </div>
     </div>
-    </div>
+<?php endif; ?>
+</div>
+</div>
 </body>
 
 </html>
