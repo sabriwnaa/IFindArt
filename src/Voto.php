@@ -78,4 +78,16 @@ class Voto implements ActiveRecord {
         }
         return $votos;
     }
+
+    public static function resetarVotos($idUsuario): bool {
+    
+        if (!$idUsuario || !is_numeric($idUsuario)) {
+            return false;
+        }else{
+            $db = new MySQL();
+            $sql = sprintf("DELETE FROM voto WHERE idUsuario = %d", intval($idUsuario));
+            return $db->executa($sql); 
+        }
+        
+    }
 }

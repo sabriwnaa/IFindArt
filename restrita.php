@@ -79,6 +79,17 @@ if ($modo === 'votacao') {
                 <div class="containerRanking">
                     <h1>Artistas favoritos dos estudantes</h1>
 
+                    <?php
+                        if (Voto::findAllByUsuario($_SESSION['idUsuario'])) {
+                            $votos = Voto::findAllByUsuario($_SESSION['idUsuario']);
+                            $totalVotos = count($votos);
+                            $totalItens = count(Item::findAll());
+                            echo "<p>Voce fez {$totalVotos} votos de {$totalItens} itens</p>";
+                            echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
+                        }
+                    ?>
+                    
+
                     <?php if (!empty($ranking)) {
                         $posicao = 0;
                         foreach ($ranking as $item) {

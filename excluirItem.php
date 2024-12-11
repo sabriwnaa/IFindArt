@@ -14,6 +14,6 @@ if ($item && $item->delete()) {
     header("Location: restritaAdmin.php");
     exit();
 } else {
-    echo "Erro ao excluir o item.";
+    echo "Erro ao excluir o item.";
 }
 ?>
