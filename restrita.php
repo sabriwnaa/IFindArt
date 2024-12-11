@@ -63,6 +63,15 @@ if ($modo === 'votacao') {
                         <div class="votacaoFoto" style="background-image: url('images/<?= htmlspecialchars($itemAleatorio['imagem']); ?>');">
                             <div class="barraArtista">
                                 <h2><?= htmlspecialchars($itemAleatorio['titulo']); ?></h2>
+                                <?php
+                        if (Voto::findAllByUsuario($_SESSION['idUsuario'])) {
+                            $votos = Voto::findAllByUsuario($_SESSION['idUsuario']);
+                            $totalVotos = count($votos);
+                            $totalItens = count(Item::findAll());
+                            echo "<p>{$totalVotos}/{$totalItens} itens</p>";
+                            echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
+                        }
+                    ?>
                             </div>
                             <form class="botoesVotacao" method="POST" action="votar.php">
                                 <input type="hidden" name="item_id" value="<?= $itemAleatorio['idItem']; ?>">
@@ -84,7 +93,7 @@ if ($modo === 'votacao') {
                             $votos = Voto::findAllByUsuario($_SESSION['idUsuario']);
                             $totalVotos = count($votos);
                             $totalItens = count(Item::findAll());
-                            echo "<p>Voce fez {$totalVotos} votos de {$totalItens} itens</p>";
+                            echo "<p>Voce fez {$totalVotos} voto(s) de {$totalItens} itens</p>";
                             echo "<a href='resetarVotos.php' class='botaoResetarVotos'>Resetar meus Votos</a>";
                         }
                     ?>
